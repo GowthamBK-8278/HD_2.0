@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>HACKDAY 2.0 | DECODEP 24 Hours Hackathon</title>
+  <meta name="description" content="DECODEP presents HACKDAY 2.0 — 24 Hours Hackathon. December 19-20, 2026. Online Only. Free Registration. Same Madness, Bigger Ideas!">
+  
+  <!-- Favicon using stylized P logo -->
+  <link rel="icon" type="image/png" href="img/logo.png?v=2">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@400;500;600;700&family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=8">
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- Ambient Cozy Lights & Garland -->
+  <div class="ambient-room-lights" aria-hidden="true"></div>
+  <div class="fairy-lights-garland" aria-hidden="true"></div>
+
+  <!-- =========================================================================
+       PRELOADER: Running Cartoon Dog (Shiro)
+       ========================================================================= -->
+  <div id="preloader" role="status" aria-live="polite">
+    <div class="preloader-dog-track">
+      <img src="img/props/shiro.png" alt="Shiro cartoon dog running" class="preloader-shiro">
+      <div class="preloader-target-bone" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="#FFFFFF" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 10a2.2 2.2 0 1 0 1.8-3.3 2.2 2.2 0 0 0-3.6-.8L8.7 9.7a2.2 2.2 0 0 0-3.6.8 2.2 2.2 0 1 0 1.8 3.3 2.2 2.2 0 0 0 3.6.8l7.5-3.8a2.2 2.2 0 0 0 0-.8z"/>
+        </svg>
+      </div>
+    </div>
+    <div class="preloader-title">HACKDAY 2.0</div>
+    <div class="preloader-bar-wrap">
+      <div class="preloader-bar-fill"></div>
+    </div>
+    <div class="preloader-text">Waking up Shiro & brewing coffee...</div>
+  </div>
+
+  <!-- Floating Audio & Utility Controls -->
+  <aside class="floating-controls" aria-label="Quick controls">
+    <button id="back-to-top-btn" class="control-btn clickable" aria-label="Back to top" title="Back to Top" style="opacity: 0; pointer-events: none; transform: scale(0.8);">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+    <button id="audio-toggle-btn" class="control-btn clickable" aria-label="Toggle cartoon sound effects" title="Toggle Sound">
+      <svg class="audio-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </aside>
+
+  <!-- =========================================================================
+       HEADER / BRAND NAVBAR
+       ========================================================================= -->
+  <header class="navbar" role="banner">
+    <a href="https://www.decodep.in/" target="_blank" rel="noopener noreferrer" class="brand-wrapper clickable" aria-label="DecodeP Official Website">
+      <img src="img/logo.png?v=2" alt="DecodeP Silver Stylized P Logo" class="brand-logo-img">
+      <div class="brand-text">
+        <span class="brand-name">DECODEP</span>
+        <span class="brand-tagline">DECODE · DEVELOP · DOMINATE</span>
+      </div>
+    </a>
+
+    <!-- Responsive Navigation Links -->
+    <nav class="nav-links" id="nav-menu" aria-label="Main Navigation">
+      <a href="#hero" class="nav-link clickable">Home</a>
+      <a href="#info-strip" class="nav-link clickable">Details</a>
+      <a href="#workflow" class="nav-link clickable">Workflow</a>
+      <a href="#webinar" class="nav-link clickable">Webinar</a>
+      <a href="#gallery" class="nav-link clickable">Chronicles</a>
+      <a href="https://unstop.com/o/zTIUx2V?lb=CJ" target="_blank" rel="noopener noreferrer" class="nav-register-cta clickable">
+        <span>Register Now</span>
+      </a>
+    </nav>
+
+    <!-- Nav Actions: Status Badge & Mobile Hamburger -->
+    <div class="nav-actions">
+      <div class="nav-status-badge">
+        <span class="nav-status-dot"></span>
+        <span class="nav-status-text">ONLINE ONLY · DEC 19–20</span>
+      </div>
+      <button class="nav-hamburger clickable" id="nav-hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       SECTION 1: HERO SECTION
+       ========================================================================= -->
+  <main>
+    <section class="hero-section" id="hero" aria-labelledby="hero-heading">
+      <!-- Three.js 3D Interactive Canvas -->
+      <div id="three-hero-container" class="hero-3d-bg-canvas" aria-hidden="true"></div>
+
+      <!-- Hero Text & CTAs -->
+      <div class="hero-content">
+        <div class="hero-badge-strip">
+          <span class="comic-pill yellow">★ 24 HOURS HACKATHON</span>
+          <span class="comic-pill red">FREE REGISTRATION</span>
+          <span class="comic-pill cyan">ONLINE ONLY</span>
+        </div>
+
+        <h1 id="hero-heading" class="hero-title">
+          HACKDAY <span class="accent-yellow">2.0</span>
+        </h1>
+
+        <div class="hero-taglines">
+          <p class="tagline-item primary-tagline">
+            "SAME MADNESS, BIGGER IDEAS!"
+          </p>
+          <p class="tagline-item secondary-tagline">
+            <mark class="marker-highlight">GOOD IDEAS HAPPEN HERE!</mark>
+          </p>
+        </div>
+
+        <!-- Big Bouncy Call To Action -->
+        <div class="hero-cta-group">
+          <a href="https://unstop.com/o/zTIUx2V?lb=CJ" target="_blank" rel="noopener noreferrer" class="btn-register-bouncy clickable" id="hero-register-btn" aria-label="Register now on Unstop in a new tab">
+            <svg class="btn-svg-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+            <span>REGISTER NOW</span>
+          </a>
+          <a href="#webinar" class="btn-secondary-comic clickable">
+            <svg class="btn-svg-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+            <span>Free Webinar</span>
+          </a>
+        </div>
+
+        <!-- Live 3D Flip Countdown Timer to Dec 19, 2026 -->
+        <div class="countdown-container" role="region" aria-label="Hackathon countdown timer">
+          <div class="countdown-header">
+            <svg class="timer-svg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="13" r="8"/>
+              <path d="M12 9v4l2 2M12 2v3M10 2h4"/>
+            </svg>
+            <span>COUNTDOWN TO MADNESS</span>
+            <span style="font-size:0.75rem; color:#94A3B8;">(DEC 19, 2026)</span>
+          </div>
+          <div class="countdown-timer">
+            <div class="timer-slot">
+              <div class="timer-box" id="count-days">00</div>
+              <span class="timer-label">Days</span>
+            </div>
+            <span class="timer-sep">:</span>
+            <div class="timer-slot">
+              <div class="timer-box" id="count-hours">00</div>
+              <span class="timer-label">Hours</span>
+            </div>
+            <span class="timer-sep">:</span>
+            <div class="timer-slot">
+              <div class="timer-box" id="count-minutes">00</div>
+              <span class="timer-label">Mins</span>
+            </div>
+            <span class="timer-sep">:</span>
+            <div class="timer-slot">
+              <div class="timer-box" id="count-seconds">00</div>
+              <span class="timer-label">Secs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Stage: Official Event Poster -->
+      <div class="hero-visual-stage">
+        <div class="hero-poster-frame">
+          <img src="img/official_poster.jpg?v=6" alt="Official HACKDAY 2.0 Event Poster" class="hero-poster-img">
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: INFO STRIP & FREE REGISTRATION RIBBON
+         ========================================================================= -->
+    <section class="info-strip-section" id="info-strip" aria-label="Event Details">
+      <!-- Free Registration Angled Ribbon -->
+      <div class="ribbon-free-registration">
+        <svg class="ribbon-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2L14.6 9.4L22 12L14.6 14.6L12 22L9.4 14.6L2 12L9.4 9.4L12 2Z" fill="#FFF7B2" stroke="#000000" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <span>FREE REGISTRATION</span>
+        <svg class="ribbon-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2L14.6 9.4L22 12L14.6 14.6L12 22L9.4 14.6L2 12L9.4 9.4L12 2Z" fill="#FFF7B2" stroke="#000000" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="info-cards-grid">
+        <!-- Date Card -->
+        <article class="info-card">
+          <div class="info-card-icon-wrap" aria-hidden="true">
+            <svg class="card-svg-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="12" width="44" height="38" rx="8" fill="#FFFFFF" stroke="#000000" stroke-width="3.5"/>
+              <path d="M6 20C6 15.5817 9.58172 12 14 12H42C46.4183 12 50 15.5817 50 20V24H6V20Z" fill="#E8222E" stroke="#000000" stroke-width="3.5"/>
+              <rect x="14" y="6" width="6" height="12" rx="3" fill="#FFD400" stroke="#000000" stroke-width="3"/>
+              <rect x="36" y="6" width="6" height="12" rx="3" fill="#FFD400" stroke="#000000" stroke-width="3"/>
+              <circle cx="16" cy="32" r="3" fill="#CBD5E1"/>
+              <circle cx="28" cy="32" r="3" fill="#CBD5E1"/>
+              <circle cx="40" cy="32" r="3" fill="#CBD5E1"/>
+              <circle cx="16" cy="42" r="3" fill="#CBD5E1"/>
+              <rect x="24" y="38" width="20" height="8" rx="4" fill="#E8222E"/>
+              <circle cx="28" cy="42" r="2" fill="#FFFFFF"/>
+              <circle cx="36" cy="42" r="2" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <div class="info-card-content">
+            <h3>December 19 – 20, 2026</h3>
+            <p>Non-stop weekend innovation marathon.</p>
+          </div>
+        </article>
+
+        <!-- Mode Card -->
+        <article class="info-card">
+          <div class="info-card-icon-wrap" aria-hidden="true">
+            <svg class="card-svg-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="28" cy="28" r="22" fill="#38BDF8" stroke="#000000" stroke-width="3.5"/>
+              <ellipse cx="28" cy="28" rx="10" ry="22" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+              <line x1="6" y1="28" x2="50" y2="28" stroke="#FFFFFF" stroke-width="3"/>
+              <line x1="10" y1="17" x2="46" y2="17" stroke="#FFFFFF" stroke-width="2.5" opacity="0.9"/>
+              <line x1="10" y1="39" x2="46" y2="39" stroke="#FFFFFF" stroke-width="2.5" opacity="0.9"/>
+              <path d="M38 10C42 14 44 20 44 28" stroke="#FFD400" stroke-width="3.5" stroke-linecap="round"/>
+              <circle cx="43" cy="11" r="3.5" fill="#FFD400" stroke="#000000" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="info-card-content">
+            <h3>ONLINE ONLY</h3>
+            <p>Hack from your cozy room anywhere across the globe.</p>
+          </div>
+        </article>
+
+        <!-- Format Card -->
+        <article class="info-card">
+          <div class="info-card-icon-wrap" aria-hidden="true">
+            <svg class="card-svg-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="25" y="4" width="6" height="8" rx="2" fill="#FFD400" stroke="#000000" stroke-width="3"/>
+              <rect x="39" y="8" width="5" height="7" rx="1.5" transform="rotate(35 39 8)" fill="#FFD400" stroke="#000000" stroke-width="2.5"/>
+              <circle cx="28" cy="32" r="20" fill="#FFFFFF" stroke="#000000" stroke-width="3.5"/>
+              <circle cx="28" cy="32" r="16" fill="#F8FAFC"/>
+              <line x1="28" y1="17" x2="28" y2="20" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="43" y1="32" x2="40" y2="32" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="28" y1="47" x2="28" y2="44" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="13" y1="32" x2="16" y2="32" stroke="#000000" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="28" cy="32" r="3.5" fill="#E8222E" stroke="#000000" stroke-width="2"/>
+              <line x1="28" y1="32" x2="38" y2="24" stroke="#E8222E" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="info-card-content">
+            <h3>24 HOURS HACKATHON</h3>
+            <p>From prompt to deployment in one thrilling sprint.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3: ABOUT / WORKFLOW & 3D BOOK STACK
+         ========================================================================= -->
+    <section class="workflow-section" id="workflow" aria-labelledby="workflow-title">
+      <div class="section-header-comic">
+        <span class="section-comic-tag">THE HACKATHON BLUEPRINT</span>
+        <h2 id="workflow-title" class="section-comic-title">
+          HOW <span class="doodle-underline">HACKDAY</span> WORKS
+        </h2>
+      </div>
+
+      <div class="workflow-layout">
+        <!-- Sticky Note Workflow Checklist -->
+        <div class="sticky-note-card" role="region" aria-label="Workflow checklist sticky note">
+          <div class="sticky-tape"></div>
+          <h3 class="sticky-note-title">
+            <span class="sticky-title-wrap">
+              <svg class="title-svg-pin" viewBox="0 0 24 24" width="22" height="22" fill="#E8222E" stroke="#000000" stroke-width="1.8" aria-hidden="true">
+                <path d="M16 3l5 5-2 2-2-1-3 3v5l-2 2-2-2v-5l3-3-1-2 2-2z"/>
+              </svg>
+              HACKER'S CHECKLIST
+            </span>
+            <span class="sticky-pin-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#713F12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+                <rect x="9" y="3" width="6" height="4" rx="1"/>
+                <path d="m9 14 2 2 4-4"/>
+              </svg>
+            </span>
+          </h3>
+          <div class="workflow-loop-list">
+            <!-- 1. INNOVATION -->
+            <div class="workflow-step-item clickable" title="Click to mark done!" data-step="Innovation">
+              <span class="workflow-step-num">1</span>
+              <div class="workflow-step-info">
+                <span class="workflow-step-text">Innovation</span>
+                <span class="workflow-step-desc">Creative problem-solving & novel breakthrough tech</span>
+              </div>
+              <span class="workflow-step-badge">Creative Tech</span>
+            </div>
+
+            <!-- 2. UNIQUENESS -->
+            <div class="workflow-step-item clickable" title="Click to mark done!" data-step="Uniqueness">
+              <span class="workflow-step-num">2</span>
+              <div class="workflow-step-info">
+                <span class="workflow-step-text">Uniqueness</span>
+                <span class="workflow-step-desc">Original differentiator & standout competitive edge</span>
+              </div>
+              <span class="workflow-step-badge">Original Edge</span>
+            </div>
+
+            <!-- 3. FEATURE FRIENDLY -->
+            <div class="workflow-step-item clickable" title="Click to mark done!" data-step="Feature Friendly">
+              <span class="workflow-step-num">3</span>
+              <div class="workflow-step-info">
+                <span class="workflow-step-text">Feature Friendly</span>
+                <span class="workflow-step-desc">Intuitive UX/UI, accessibility & smooth user flow</span>
+              </div>
+              <span class="workflow-step-badge">Intuitive UX</span>
+            </div>
+
+            <!-- 4. IMPACT AND EFFECTS -->
+            <div class="workflow-step-item clickable" title="Click to mark done!" data-step="Impact and Effects">
+              <span class="workflow-step-num">4</span>
+              <div class="workflow-step-info">
+                <span class="workflow-step-text">Impact and Effects</span>
+                <span class="workflow-step-desc">Measurable real-world value & user benefits</span>
+              </div>
+              <span class="workflow-step-badge">Real Impact</span>
+            </div>
+
+            <!-- 5. REFERENCE -->
+            <div class="workflow-step-item clickable" title="Click to mark done!" data-step="Reference">
+              <span class="workflow-step-num">5</span>
+              <div class="workflow-step-info">
+                <span class="workflow-step-text">Reference</span>
+                <span class="workflow-step-desc">Research citations, benchmarks & open-source APIs</span>
+              </div>
+              <span class="workflow-step-badge">Citations & Docs</span>
+            </div>
+
+            <!-- 6. FEASIBILITY -->
+            <div class="workflow-step-item clickable" title="Click to mark done!" data-step="Feasibility">
+              <span class="workflow-step-num">6</span>
+              <div class="workflow-step-info">
+                <span class="workflow-step-text">Feasibility</span>
+                <span class="workflow-step-desc">Scalable architecture & viable tech stack</span>
+              </div>
+              <span class="workflow-step-badge">Tech Viable</span>
+            </div>
+
+            <!-- 7. CHALLENGES -->
+            <div class="workflow-step-item clickable" title="Click to mark done!" data-step="Challenges">
+              <span class="workflow-step-num">7</span>
+              <div class="workflow-step-info">
+                <span class="workflow-step-text">Challenges</span>
+                <span class="workflow-step-desc">Roadblocks tackled, edge cases & resilience learnings</span>
+              </div>
+              <span class="workflow-step-badge">Solved Hurdles</span>
+            </div>
+
+            <!-- 8. IDEA -->
+            <div class="workflow-step-item clickable" title="Click to mark done!" data-step="Idea">
+              <span class="workflow-step-num">8</span>
+              <div class="workflow-step-info">
+                <span class="workflow-step-text">Idea</span>
+                <span class="workflow-step-desc">Problem statement, core concept & overarching vision</span>
+              </div>
+              <span class="workflow-step-badge">Core Vision</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Book Stack & Props Shelf -->
+        <div class="book-stack-container">
+          <h3 class="book-stack-title">
+            <svg class="title-svg-book" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+              <path d="M6 6h10M6 10h10"/>
+            </svg>
+            THE DEVELOPER'S PLAYBOOK
+          </h3>
+          <div class="book-shelf-stage">
+            <div class="book-item book-idea clickable" data-book="IDEA">
+              <span class="book-spine-text">IDEA</span>
+              <span class="book-bookmark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M9 18h6m-4 4h2M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"/>
+                </svg>
+              </span>
+            </div>
+            <div class="book-item book-design clickable" data-book="DESIGN">
+              <span class="book-spine-text">DESIGN</span>
+              <span class="book-bookmark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.8.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-5.5-4.5-10-10-10z"/>
+                  <circle cx="7.5" cy="11.5" r="1.5" fill="currentColor"/>
+                  <circle cx="12" cy="7.5" r="1.5" fill="currentColor"/>
+                  <circle cx="16.5" cy="11.5" r="1.5" fill="currentColor"/>
+                </svg>
+              </span>
+            </div>
+            <div class="book-item book-develop clickable" data-book="DEVELOP">
+              <span class="book-spine-text">DEVELOP</span>
+              <span class="book-bookmark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <rect x="3" y="4" width="18" height="12" rx="2"/>
+                  <path d="M2 20h20M9 10l-2 2 2 2m6-4 2 2-2 2"/>
+                </svg>
+              </span>
+            </div>
+            <div class="book-item book-deploy clickable" data-book="DEPLOY">
+              <span class="book-spine-text">DEPLOY</span>
+              <span class="book-bookmark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                  <circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Coding Room Props Display -->
+          <div class="props-shelf-display">
+            <div class="prop-badge">
+              <span class="prop-svg-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM6 2v3M10 2v3M14 2v3"/>
+                </svg>
+              </span>
+              <span>Hot Coffee</span>
+            </div>
+            <div class="prop-badge">
+              <span class="prop-svg-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#22C55E" stroke="#000000" stroke-width="1.8">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              </span>
+              <span>Chocobi Stars</span>
+            </div>
+            <div class="prop-badge">
+              <span class="prop-svg-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#F59E0B" stroke="#000000" stroke-width="1.8">
+                  <rect x="4" y="3" width="16" height="18" rx="3"/>
+                  <path d="M7 3l2 3M17 3l-2 3M7 21l2-3M17 21l-2-3"/>
+                </svg>
+              </span>
+              <span>Chips Pack</span>
+            </div>
+            <div class="prop-badge">
+              <span class="prop-svg-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#FFFFFF" stroke="#000000" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="8"/>
+                  <circle cx="9" cy="11" r="1.5" fill="#000000"/>
+                  <circle cx="15" cy="11" r="1.5" fill="#000000"/>
+                  <ellipse cx="12" cy="15" rx="2" ry="1.2" fill="#E8222E"/>
+                  <path d="M5 8Q3 5 7 5M19 8Q21 5 17 5"/>
+                </svg>
+              </span>
+              <span>Shiro Buddy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 4: FREE WEBINAR (LIVE BADGE) & LOCK LOGIC
+         ========================================================================= -->
+    <section class="webinar-section" id="webinar" aria-labelledby="webinar-heading">
+      <div class="section-header-comic">
+        <div class="webinar-header-badge">
+          <span class="nav-status-dot"></span>
+          <span>LIVE BADGE</span>
+        </div>
+        <h2 id="webinar-heading" class="section-comic-title">
+          FREE <span class="doodle-underline">WEBINAR</span>
+        </h2>
+        <p style="font-family: var(--font-sub); font-size: 1.15rem; color: var(--yellow-main); font-weight: 700; margin-top: 6px;">
+          LEARN · BUILD · PREPARE
+        </p>
+      </div>
+
+      <div class="webinar-cards-grid">
+        <!-- Session 1: Hackathon 101 -->
+        <article class="webinar-card is-locked" id="webinar-card-1">
+          <!-- Frosted Padlock Lock Overlay -->
+          <div class="webinar-lock-overlay" aria-hidden="true">
+            <div class="lock-padlock-icon">🔒</div>
+            <span class="lock-tag">🔒 Unlocks Soon</span>
+            <p class="lock-hint-text">Click card for alert</p>
+          </div>
+
+          <div>
+            <div class="webinar-session-badge">SESSION 01</div>
+            <h3 class="webinar-card-title">HACKATHON 101</h3>
+            <ul class="webinar-bullets">
+              <li><span class="webinar-bullet-icon">✦</span> What is a Hackathon?</li>
+              <li><span class="webinar-bullet-icon">✦</span> How to choose a problem?</li>
+              <li><span class="webinar-bullet-icon">✦</span> Tips to win &amp; present</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Session 2: Website Development -->
+        <article class="webinar-card is-locked" id="webinar-card-2">
+          <!-- Frosted Padlock Lock Overlay -->
+          <div class="webinar-lock-overlay" aria-hidden="true">
+            <div class="lock-padlock-icon">🔒</div>
+            <span class="lock-tag">🔒 Unlocks Soon</span>
+            <p class="lock-hint-text">Click card for alert</p>
+          </div>
+
+          <div>
+            <div class="webinar-session-badge">SESSION 02</div>
+            <h3 class="webinar-card-title">WEBSITE DEVELOPMENT</h3>
+            <ul class="webinar-bullets">
+              <li><span class="webinar-bullet-icon">✦</span> How to plan a website?</li>
+              <li><span class="webinar-bullet-icon">✦</span> Tools &amp; tech stack</li>
+              <li><span class="webinar-bullet-icon">✦</span> Live demo &amp; basic setup</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Session 3: Vibe Coding -->
+        <article class="webinar-card is-locked" id="webinar-card-3">
+          <!-- Frosted Padlock Lock Overlay -->
+          <div class="webinar-lock-overlay" aria-hidden="true">
+            <div class="lock-padlock-icon">🔒</div>
+            <span class="lock-tag">🔒 Unlocks Soon</span>
+            <p class="lock-hint-text">Click card for alert</p>
+          </div>
+
+          <div>
+            <div class="webinar-session-badge">SESSION 03</div>
+            <h3 class="webinar-card-title">VIBE CODING</h3>
+            <ul class="webinar-bullets">
+              <li><span class="webinar-bullet-icon">✦</span> What is Vibe Coding?</li>
+              <li><span class="webinar-bullet-icon">✦</span> How to use AI effectively?</li>
+              <li><span class="webinar-bullet-icon">✦</span> Build faster with AI</li>
+              <li><span class="webinar-bullet-icon">✦</span> Live practical session</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: REGISTER IS OPEN STATUS BANNER
+         ========================================================================= -->
+    <section class="status-banner-section" id="register-banner" aria-label="Registration announcement">
+      <div class="status-banner-card">
+        <div class="status-banner-left">
+          <div class="status-megaphone-icon" aria-hidden="true">📢</div>
+          <div>
+            <h2 class="status-banner-title">REGISTER IS OPEN</h2>
+            <p class="status-banner-desc">Grab your free spot before slots fill up! 24 Hours of pure vibe coding madness.</p>
+          </div>
+        </div>
+        <a href="https://unstop.com/o/zTIUx2V?lb=CJ" target="_blank" rel="noopener noreferrer" class="btn-register-bouncy clickable" aria-label="Register now on Unstop in a new tab">
+          <span class="btn-icon-hand">👆</span>
+          <span>REGISTER NOW</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: COMIC ART & SQUAD TRIBUTE GALLERY
+         ========================================================================= -->
+    <section class="gallery-section" id="gallery" aria-label="Shinchan inspired Hackday Comic Posters">
+      <div class="section-header-comic">
+        <span class="section-comic-tag">THE HACKDAY SQUAD</span>
+        <h2 class="section-comic-title">THE CODING ROOM CHRONICLES</h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="comic-frame">
+          <img src="img/poster1.jpg?v=5" alt="Shinchan hackathon coding room night" class="comic-frame-img">
+          <div class="comic-frame-caption">
+            "24 Hours Hackathon — Night 1: Tapping code, sipping coffee!"
+          </div>
+        </div>
+
+        <div class="comic-frame">
+          <img src="img/poster2.jpg" alt="Shinchan squad celebrating ideas with glowing lightbulb and rocket" class="comic-frame-img">
+          <div class="comic-frame-caption">
+            "Same Madness, Bigger Ideas — Rocket to the Stars!"
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="footer-section" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <a href="https://www.decodep.in/" target="_blank" rel="noopener noreferrer" class="footer-brand clickable" title="Visit DecodeP Official Website">
+            <img src="img/logo.png?v=2" alt="DecodeP silver stylized P logo" class="footer-brand-logo">
+            <div>
+              <div class="footer-brand-title">DECODEP</div>
+              <div class="footer-tagline-text">DECODE · DEVELOP · DOMINATE</div>
+            </div>
+          </a>
+          <p class="footer-brand-desc">
+            A technology ecosystem building digital solutions, empowering developer communities, and creating practical opportunities to learn, build, and grow.
+          </p>
+          <div class="footer-contact-items">
+            <a href="mailto:officialdecodep@gmail.com" class="footer-contact-badge clickable" title="Email officialdecodep@gmail.com">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              <span>officialdecodep@gmail.com</span>
+            </a>
+            <a href="tel:+919363471419" class="footer-contact-badge clickable" title="Call +91 93634 71419">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <span>+91 93634 71419</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Center Column: Same Madness, Bigger Ideas and Social Links -->
+        <div class="footer-center-col">
+          <div class="footer-madness-quote">
+            "SAME MADNESS, BIGGER IDEAS!"
+          </div>
+          <div class="footer-social-links" aria-label="DecodeP Community Links">
+            <a href="https://www.decodep.in/" target="_blank" rel="noopener noreferrer" class="social-btn clickable" aria-label="Official Website" title="Website: www.decodep.in">
+              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </a>
+            <a href="https://instagram.com/officialdecodep" target="_blank" rel="noopener noreferrer" class="social-btn clickable" aria-label="Instagram" title="Instagram: @officialdecodep">
+              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/company/officialdecodep/" target="_blank" rel="noopener noreferrer" class="social-btn clickable" aria-label="LinkedIn" title="LinkedIn: officialdecodep">
+              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.53 1.53 0 0 0 1.54-1.53c0-.85-.69-1.54-1.54-1.54s-1.53.69-1.53 1.54a1.53 1.53 0 0 0 1.53 1.53m1.4 9.74v-8.37H5.06v8.37h2.8z"/>
+              </svg>
+            </a>
+            <a href="mailto:officialdecodep@gmail.com" class="social-btn clickable" aria-label="Email Us" title="Email: officialdecodep@gmail.com">
+              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+            </a>
+            <a href="tel:+919363471419" class="social-btn clickable" aria-label="Call Us" title="Phone: +91 93634 71419">
+              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </a>
+            <a href="https://discord.gg/c8D7jDgWX" target="_blank" rel="noopener noreferrer" class="social-btn clickable" aria-label="Join Discord Server" title="Discord: discord.gg/c8D7jDgWX">
+              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+              </svg>
+            </a>
+            <a href="https://github.com/officialdecodep" target="_blank" rel="noopener noreferrer" class="social-btn clickable" aria-label="GitHub" title="GitHub: officialdecodep">
+              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Collaborate Partner (Logo on top in right corner, label underneath) -->
+        <div class="footer-collab-col">
+          <a href="https://uptoskills.com/" target="_blank" rel="noopener noreferrer" class="collab-partner-card clickable" title="UptoSkills — Let's Make Freshers Employable!">
+            <img src="img/uptoskills_logo.png?v=3" alt="UptoSkills Logo" class="collab-partner-logo">
+          </a>
+          <span class="collab-partner-label">★ Collaborate Partner ★</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-counter-badge">
+          <span>⚡ Over <span id="footer-hacker-count">248</span> Hackers Ready to Dominate!</span>
+        </div>
+        <div class="footer-disclaimer">
+          Fan-style tribute design; characters belong to their respective owners.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Canvas for Confetti Fireworks -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Main JavaScript Engine -->
+  <script src="js/main.js"></script>
+</body>
+</html>
