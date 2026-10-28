@@ -331,12 +331,6 @@ function initThreeScene() {
     });
   }
 
-  // Mouse Parallax
-  let mouseX = 0;
-  let mouseY = 0;
-  let targetX = 0;
-  let targetY = 0;
-
   // Mouse & Touch Parallax with Ambient Idle Sway
   let mouseX = 0;
   let mouseY = 0;
@@ -412,6 +406,9 @@ function initThreeScene() {
 // 3. 3D CARD PERSPECTIVE TILT
 // ==============================================================================
 function initCardTilt() {
+  // Disable 3D tilt on touch devices to avoid stuck tilted state
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
   const cards = document.querySelectorAll('.info-card, .webinar-card, .comic-frame, .sticky-note-card');
 
   cards.forEach(card => {
@@ -423,8 +420,8 @@ function initCardTilt() {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const rotateX = ((y - centerY) / centerY) * -10;
-      const rotateY = ((x - centerX) / centerX) * 10;
+      const rotateX = ((y - centerY) / centerY) * -8;
+      const rotateY = ((x - centerX) / centerX) * 8;
 
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
     });
@@ -761,11 +758,78 @@ function initPreloader() {
 }
 
 // ==============================================================================
+// 11. RESPONSIVE MOBILE NAVIGATION
+// ==============================================================================
+function initMobileNav() {
+  const hamburgerBtn = document.getElementById('nav-hamburger-btn');
+  const navMenu = document.getElementById('nav-menu');
+  if (!hamburgerBtn || !navMenu) return;
+
+  const toggleMenu = () => {
+    const isOpen = navMenu.classList.toggle('is-open');
+    hamburgerBtn.classList.toggle('is-active', isOpen);
+    hamburgerBtn.setAttribute('aria-expanded', isOpen);
+    CartoonAudio.playPop(isOpen ? 520 : 360, 0.06);
+  };
+
+  hamburgerBtn.addEventListener('click', toggleMenu);
+
+  // Close menu when clicking any nav link
+  document.querySelectorAll('.nav-link, .nav-register-cta').forEach(link => {
+    link.addEventListener('click', () => {
+      if (navMenu.classList.contains('is-open')) {
+        navMenu.classList.remove('is-open');
+        hamburgerBtn.classList.remove('is-active');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (navMenu.classList.contains('is-open') && !navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+      navMenu.classList.remove('is-open');
+      hamburgerBtn.classList.remove('is-active');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+// ==============================================================================
+// 12. BACK TO TOP BUTTON
+// ==============================================================================
+function initBackToTop() {
+  const topBtn = document.getElementById('back-to-top-btn');
+  if (!topBtn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 380) {
+      topBtn.style.opacity = '1';
+      topBtn.style.pointerEvents = 'auto';
+      topBtn.style.transform = 'scale(1)';
+    } else {
+      topBtn.style.opacity = '0';
+      topBtn.style.pointerEvents = 'none';
+      topBtn.style.transform = 'scale(0.8)';
+    }
+  }, { passive: true });
+
+  topBtn.addEventListener('click', () => {
+    CartoonAudio.playSuccess();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// ==============================================================================
 // INITIALIZATION ON DOM READY
 // ==============================================================================
 document.addEventListener('DOMContentLoaded', () => {
   // Preloader
   initPreloader();
+
+  // Responsive Mobile Navigation & Back to Top
+  initMobileNav();
+  initBackToTop();
 
   // Three.js 3D hero scene
   initThreeScene();
