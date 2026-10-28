@@ -359,8 +359,11 @@ function initThreeScene() {
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-    if (w < 640) {
-      group.scale.set(0.65, 0.65, 0.65);
+    if (w < 480) {
+      group.scale.set(0.52, 0.52, 0.52);
+      camera.position.z = 30;
+    } else if (w < 768) {
+      group.scale.set(0.68, 0.68, 0.68);
       camera.position.z = 28;
     } else if (w < 1024) {
       group.scale.set(0.85, 0.85, 0.85);
@@ -788,6 +791,25 @@ function initMobileNav() {
   // Close menu when clicking outside
   document.addEventListener('click', (e) => {
     if (navMenu.classList.contains('is-open') && !navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+      navMenu.classList.remove('is-open');
+      hamburgerBtn.classList.remove('is-active');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close menu on Escape key press
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
+      navMenu.classList.remove('is-open');
+      hamburgerBtn.classList.remove('is-active');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      hamburgerBtn.focus();
+    }
+  });
+
+  // Automatically close mobile menu if viewport resized to desktop width
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1024 && navMenu.classList.contains('is-open')) {
       navMenu.classList.remove('is-open');
       hamburgerBtn.classList.remove('is-active');
       hamburgerBtn.setAttribute('aria-expanded', 'false');
