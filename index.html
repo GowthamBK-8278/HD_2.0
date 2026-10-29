@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@400;500;600;700&family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Core Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=17">
+  <link rel="stylesheet" href="css/style.css?v=18">
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -190,10 +190,107 @@
         </div>
       </div>
 
-      <!-- Hero Visual Stage: Official Event Poster -->
+      <!-- Hero Visual Stage: Official Event Poster with Funny Animated Shinchan -->
       <div class="hero-visual-stage">
-        <div class="hero-poster-frame">
-          <img src="img/official_poster.jpg?v=6" alt="Official HACKDAY 2.0 Event Poster" class="hero-poster-img">
+        <div class="hero-poster-wrapper">
+          <!-- Interactive Shinchan Hero Mascot Peeking Over Frame -->
+          <button type="button" class="shinchan-hero-mascot" id="shinchan-mascot-btn" aria-label="Funny Shinchan mascot! Click for fun reactions" title="Click me! Hehehe!">
+            <div class="shinchan-bubble" id="shinchan-bubble" aria-live="polite">
+              <span>Oi oi! Register now! ⚡</span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <filter id="comic-shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="3" dy="3" stdDeviation="0" flood-color="#000000"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#comic-shadow)">
+    <!-- Red Shirt Body & Shoulders -->
+    <path d="M 35 125 C 35 105 60 98 80 98 C 100 98 125 105 125 125 L 132 155 L 28 155 Z" 
+          fill="#E8222E" stroke="#000000" stroke-width="3" stroke-linejoin="round"/>
+          
+    <!-- Yellow Shirt Collar -->
+    <path d="M 65 100 Q 80 115 95 100 Q 80 106 65 100 Z" 
+          fill="#FFD400" stroke="#000000" stroke-width="2.5"/>
+
+    <!-- Shinchan Head (Iconic Potato Silhouette with Chubby Cheeks) -->
+    <path id="shinchan-head-shape" 
+          d="M 32 82 C 16 75 14 48 24 32 C 34 16 56 12 85 14 C 115 16 138 32 136 55 C 134 72 120 78 130 92 C 138 104 126 120 104 120 C 82 120 52 110 32 82 Z" 
+          fill="#FEB481" stroke="#000000" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- Shiny Black Hair on Top & Back -->
+    <path d="M 28 36 C 36 20 56 14 85 14 C 114 14 135 28 136 50 C 128 32 108 20 85 20 C 60 20 40 26 28 36 Z" 
+          fill="#1E1E24" stroke="#000000" stroke-width="2"/>
+    <path d="M 24 32 C 20 42 18 56 25 70 C 22 55 22 42 24 32 Z" 
+          fill="#1E1E24"/>
+
+    <!-- Ear -->
+    <path d="M 16 52 C 10 52 10 66 18 68 C 14 62 14 56 16 52 Z" 
+          fill="#FEB481" stroke="#000000" stroke-width="3"/>
+    <path d="M 14 58 Q 16 62 18 60" 
+          fill="none" stroke="#000000" stroke-width="2"/>
+
+    <!-- Rosy Cheek Circles -->
+    <ellipse cx="44" cy="82" rx="10" ry="7" fill="#FF7088" opacity="0.85"/>
+    <ellipse cx="114" cy="92" rx="11" ry="8" fill="#FF7088" opacity="0.85"/>
+
+    <!-- Giant Iconic Shinchan Bushy Eyebrows -->
+    <!-- Left Eyebrow (Wiggles in animation) -->
+    <g class="anim-eyebrow-left">
+      <path d="M 34 38 C 45 22 66 22 72 32 C 64 28 48 28 34 38 Z" 
+            fill="#000000" stroke="#000000" stroke-width="2" stroke-linejoin="round"/>
+    </g>
+    <!-- Right Eyebrow (Wiggles in animation) -->
+    <g class="anim-eyebrow-right">
+      <path d="M 82 32 C 92 20 115 22 124 36 C 112 28 98 28 82 32 Z" 
+            fill="#000000" stroke="#000000" stroke-width="2" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Big Mischievous Eyes -->
+    <!-- Left Eye -->
+    <g class="anim-eye-left">
+      <ellipse cx="56" cy="48" rx="8" ry="11" fill="#000000"/>
+      <ellipse cx="54" cy="45" rx="3.5" ry="4.5" fill="#FFFFFF"/>
+      <circle cx="58" cy="52" r="1.5" fill="#FFFFFF"/>
+    </g>
+    <!-- Right Eye -->
+    <g class="anim-eye-right">
+      <ellipse cx="98" cy="50" rx="8" ry="11" fill="#000000"/>
+      <ellipse cx="96" cy="47" rx="3.5" ry="4.5" fill="#FFFFFF"/>
+      <circle cx="100" cy="54" r="1.5" fill="#FFFFFF"/>
+    </g>
+
+    <!-- Funny Laughing Mouth -->
+    <g class="anim-mouth">
+      <!-- Open Mouth Outline -->
+      <path d="M 62 74 Q 80 66 96 74 Q 80 102 62 74 Z" 
+            fill="#800C16" stroke="#000000" stroke-width="3" stroke-linejoin="round"/>
+      <!-- Cute Pink Tongue -->
+      <path d="M 68 83 Q 80 76 92 82 Q 80 98 68 83 Z" 
+            fill="#FF6584"/>
+    </g>
+
+    <!-- Chubby Cartoon Hands (Resting on Poster Frame Edge) -->
+    <!-- Left Hand -->
+    <g class="anim-hand-left">
+      <path d="M 30 142 C 28 135 34 130 42 132 C 48 132 50 138 48 144 C 44 148 32 148 30 142 Z" 
+            fill="#FEB481" stroke="#000000" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M 38 133 L 38 142" stroke="#000000" stroke-width="2"/>
+    </g>
+    <!-- Right Hand -->
+    <g class="anim-hand-right">
+      <path d="M 112 142 C 110 135 116 130 124 132 C 130 132 132 138 130 144 C 126 148 114 148 112 142 Z" 
+            fill="#FEB481" stroke="#000000" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M 120 133 L 120 142" stroke="#000000" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
+          </button>
+
+          <div class="hero-poster-frame">
+            <img src="img/official_poster.jpg?v=7" alt="Official HACKDAY 2.0 Event Poster" class="hero-poster-img">
+          </div>
         </div>
       </div>
     </section>
@@ -1112,6 +1209,6 @@
   <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
   <!-- Main JavaScript Engine -->
-  <script src="js/main.js?v=2"></script>
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>

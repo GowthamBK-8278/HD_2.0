@@ -949,11 +949,66 @@ function initLiveUnstopCounter() {
 }
 
 // ==============================================================================
+// SHINCHAN HERO MASCOT INTERACTION
+// ==============================================================================
+function initShinchanMascot() {
+  const btn = document.getElementById('shinchan-mascot-btn');
+  const bubble = document.getElementById('shinchan-bubble');
+  if (!btn || !bubble) return;
+
+  const funnyQuotes = [
+    "Oi oi! Did you register yet? ⚡",
+    "Action Kamen says: REGISTER NOW! 🦸",
+    "Hehehe! Don't tickle me, I'm coding! 😉",
+    "Misae won't let me hack without you! 😜",
+    "Buri Buri Zaemon wants your prize! 🐷",
+    "Free registration! Even Shiro knows that! 🐶",
+    "Look at my bushy eyebrows wiggle! Bwahaha! ✨"
+  ];
+  let quoteIndex = 0;
+  let bubbleTimeout = null;
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    // Funny cartoon audio
+    CartoonAudio.playPop(520, 0.12);
+    setTimeout(() => {
+      CartoonAudio.playPop(780, 0.15);
+    }, 120);
+
+    // Confetti burst from the mascot button position
+    const rect = btn.getBoundingClientRect();
+    if (typeof Confetti !== 'undefined' && Confetti.burst) {
+      Confetti.burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    }
+
+    // Trigger tickle dance animation
+    btn.classList.remove('is-dancing');
+    void btn.offsetWidth; // trigger reflow
+    btn.classList.add('is-dancing');
+
+    // Cycle funny quote with scale pop
+    quoteIndex = (quoteIndex + 1) % funnyQuotes.length;
+    const textSpan = bubble.querySelector('span') || bubble;
+    textSpan.textContent = funnyQuotes[quoteIndex];
+    bubble.style.transform = 'scale(1.15)';
+    clearTimeout(bubbleTimeout);
+    bubbleTimeout = setTimeout(() => {
+      bubble.style.transform = '';
+    }, 350);
+  });
+}
+
+// ==============================================================================
 // INITIALIZATION ON DOM READY
 // ==============================================================================
 document.addEventListener('DOMContentLoaded', () => {
   // Preloader
   initPreloader();
+
+  // Shinchan Hero Mascot Interactive Peeking Animation
+  initShinchanMascot();
 
   // Responsive Mobile Navigation & Back to Top
   initMobileNav();
