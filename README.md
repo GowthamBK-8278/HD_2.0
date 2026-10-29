@@ -36,8 +36,9 @@ const EVENT_CONFIG = {
   webinar_unlocked: false,
   webinar_link: 'https://meet.google.com/decode-hackday-live',
   unstop_url: 'https://unstop.com/o/zTIUx2V?lb=CJ',
+  unstop_competition_id: '1773120',
   event_date: '2026-12-19T09:00:00',
-  base_clicks: 248
+  default_participant_count: 426
 };
 ```
 

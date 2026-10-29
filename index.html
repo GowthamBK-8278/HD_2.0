@@ -17,16 +17,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@400;500;600;700&family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Core Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=17">
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
-  <!-- Ambient Cozy Lights & Garland -->
+  <!-- Ambient Cozy Lights -->
   <div class="ambient-room-lights" aria-hidden="true"></div>
-  <div class="fairy-lights-garland" aria-hidden="true"></div>
 
   <!-- =========================================================================
        PRELOADER: Running Cartoon Dog (Shiro)
@@ -47,8 +46,13 @@
     <div class="preloader-text">Waking up Shiro & brewing coffee...</div>
   </div>
 
-  <!-- Floating Audio & Utility Controls -->
+  <!-- Floating Audio, WhatsApp & Utility Controls -->
   <aside class="floating-controls" aria-label="Quick controls">
+    <a href="https://chat.whatsapp.com/HXGcZ4vuo56CcxMmMaVnoK" target="_blank" rel="noopener noreferrer" class="control-btn control-btn-whatsapp clickable" aria-label="Join Hackday 2.0 WhatsApp Community" title="Join WhatsApp Group">
+      <svg viewBox="0 0 32 32" width="26" height="26" fill="#FFFFFF" aria-hidden="true">
+        <path d="M16 2C8.28 2 2 8.28 2 16c0 2.72.78 5.26 2.14 7.42L2 30l6.78-2.1A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.64c-2.3 0-4.46-.66-6.3-1.8l-.45-.27-4.22 1.3 1.33-4.1-.3-.48A11.59 11.59 0 0 1 4.36 16c0-6.42 5.22-11.64 11.64-11.64s11.64 5.22 11.64 11.64-5.22 11.64-11.64 11.64zm6.38-8.73c-.35-.18-2.07-1.02-2.39-1.14-.32-.12-.56-.18-.8.18-.23.35-.92 1.14-1.13 1.37-.2.23-.42.26-.77.09-.35-.18-1.48-.55-2.82-1.74-1.04-.93-1.74-2.08-1.95-2.43-.2-.35-.02-.54.15-.71.16-.16.35-.42.53-.62.18-.2.23-.35.35-.59.12-.23.06-.44-.03-.62-.09-.18-.8-1.92-1.1-2.63-.29-.69-.58-.6-.8-.61h-.68c-.23 0-.62.09-.95.44-.32.35-1.24 1.22-1.24 2.97 0 1.75 1.27 3.44 1.45 3.68.18.23 2.5 3.82 6.06 5.36.85.37 1.51.59 2.03.75.85.27 1.63.23 2.24.14.68-.1 2.07-.85 2.36-1.67.29-.82.29-1.53.2-1.67-.08-.15-.32-.24-.67-.42z"/>
+      </svg>
+    </a>
     <button id="back-to-top-btn" class="control-btn clickable" aria-label="Back to top" title="Back to Top" style="opacity: 0; pointer-events: none; transform: scale(0.8);">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M18 15l-6-6-6 6"/>
@@ -77,10 +81,11 @@
     <!-- Responsive Navigation Links -->
     <nav class="nav-links" id="nav-menu" aria-label="Main Navigation">
       <a href="#hero" class="nav-link clickable">Home</a>
-      <a href="#info-strip" class="nav-link clickable">Details</a>
+      <a href="#prizes" class="nav-link clickable">Prizes</a>
+      <a href="#community" class="nav-link clickable">Community</a>
       <a href="#workflow" class="nav-link clickable">Workflow</a>
       <a href="#webinar" class="nav-link clickable">Webinar</a>
-      <a href="#gallery" class="nav-link clickable">Chronicles</a>
+      <a href="#partners" class="nav-link clickable">Partners</a>
       <a href="https://unstop.com/o/zTIUx2V?lb=CJ" target="_blank" rel="noopener noreferrer" class="nav-register-cta clickable">
         <span>Register Now</span>
       </a>
@@ -114,6 +119,10 @@
           <span class="comic-pill yellow">★ 24 HOURS HACKATHON</span>
           <span class="comic-pill red">FREE REGISTRATION</span>
           <span class="comic-pill cyan">ONLINE ONLY</span>
+          <a href="https://unstop.com/o/zTIUx2V?lb=CJ" target="_blank" rel="noopener noreferrer" class="comic-pill live-pill clickable" title="Live participant registrations on Unstop">
+            <span class="live-pulse-dot"></span>
+            <span>LIVE: <strong id="hero-live-count">426</strong>+ REGISTERED</span>
+          </a>
         </div>
 
         <h1 id="hero-heading" class="hero-title">
@@ -478,7 +487,361 @@
     </section>
 
     <!-- =========================================================================
-         SECTION 4: FREE WEBINAR (LIVE BADGE) & LOCK LOGIC
+         SECTION 4: REWARDS & PRIZES (Image 1)
+         ========================================================================= -->
+    <section class="prizes-section" id="prizes" aria-labelledby="prizes-title">
+      <div class="section-header-comic">
+        <span class="section-comic-tag">★ ₹60,000 WORTH PRIZES ★</span>
+        <h2 id="prizes-title" class="section-comic-title">
+          REWARDS AND <span class="doodle-underline">PRIZES</span>
+        </h2>
+        <p class="section-comic-subtitle">
+          Exciting prizes worth ₹60,000, winner recognition, and certificates for all eligible participants.
+        </p>
+      </div>
+
+      <div class="prizes-grid">
+        <!-- 1. Winner (Full Width Highlight) -->
+        <article class="prize-card prize-winner-card">
+          <div class="prize-winner-badge">
+            <span class="prize-amount">₹60,000</span>
+            <span class="prize-type">WORTH PRIZES</span>
+          </div>
+          <div class="prize-card-info">
+            <div class="prize-card-header-row">
+              <h3 class="prize-card-title">Winner</h3>
+              <span class="prize-tag-certificate">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                  <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                </svg>
+                Certificate
+              </span>
+            </div>
+            <p class="prize-card-desc">
+              Prizes Worth ₹60,000 + 6 month Internship + Certificate
+            </p>
+          </div>
+        </article>
+
+        <!-- 2. First Runner Up -->
+        <article class="prize-card">
+          <div class="prize-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="42" height="42" fill="none">
+              <rect x="8" y="18" width="32" height="24" rx="4" fill="#1E40AF" stroke="#3B82F6" stroke-width="2"/>
+              <rect x="6" y="12" width="36" height="8" rx="2" fill="#2563EB" stroke="#60A5FA" stroke-width="2"/>
+              <rect x="22" y="12" width="4" height="30" fill="#93C5FD"/>
+              <path d="M24 12C21 6 14 6 14 10C14 14 24 12 24 12Z" fill="#60A5FA" stroke="#93C5FD" stroke-width="1.5"/>
+              <path d="M24 12C27 6 34 6 34 10C34 14 24 12 24 12Z" fill="#60A5FA" stroke="#93C5FD" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="prize-card-info">
+            <div class="prize-card-header-row">
+              <h3 class="prize-card-title">First Runner Up</h3>
+              <span class="prize-tag-certificate">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/></svg>
+                Certificate
+              </span>
+            </div>
+            <p class="prize-card-desc">
+              Prizes (TBA) + Winner Certificate + Official Decodep Recognition
+            </p>
+          </div>
+        </article>
+
+        <!-- 3. Second Runner up -->
+        <article class="prize-card">
+          <div class="prize-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="42" height="42" fill="none">
+              <rect x="14" y="6" width="26" height="34" rx="3" fill="#1D4ED8" stroke="#3B82F6" stroke-width="2"/>
+              <rect x="8" y="12" width="26" height="32" rx="3" fill="#2563EB" stroke="#60A5FA" stroke-width="2"/>
+              <line x1="14" y1="20" x2="28" y2="20" stroke="#BFDBFE" stroke-width="2" stroke-linecap="round"/>
+              <line x1="14" y1="26" x2="28" y2="26" stroke="#BFDBFE" stroke-width="2" stroke-linecap="round"/>
+              <line x1="14" y1="32" x2="22" y2="32" stroke="#BFDBFE" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="prize-card-info">
+            <div class="prize-card-header-row">
+              <h3 class="prize-card-title">Second Runner up</h3>
+              <span class="prize-tag-certificate">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/></svg>
+                Certificate
+              </span>
+            </div>
+            <p class="prize-card-desc">
+              Prizes (TBA) + Winner Certificate + Official Decodep Recognition
+            </p>
+          </div>
+        </article>
+
+        <!-- 4. Top 10 Participants -->
+        <article class="prize-card">
+          <div class="prize-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="42" height="42" fill="none">
+              <rect x="8" y="22" width="32" height="20" rx="3" fill="#1E40AF" stroke="#3B82F6" stroke-width="2"/>
+              <path d="M6 18L24 10L42 18" stroke="#60A5FA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <polygon points="24 4 26 10 32 10 27 14 29 20 24 16 19 20 21 14 16 10 22 10" fill="#FFD400"/>
+            </svg>
+          </div>
+          <div class="prize-card-info">
+            <div class="prize-card-header-row">
+              <h3 class="prize-card-title">Top 10 Participants</h3>
+              <span class="prize-tag-certificate">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/></svg>
+                Certificate
+              </span>
+            </div>
+            <p class="prize-card-desc">
+              Certificate of EXCELLENCE+ Official Decodep Recognition
+            </p>
+          </div>
+        </article>
+
+        <!-- 5. Every Registered Participant -->
+        <article class="prize-card">
+          <div class="prize-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="42" height="42" fill="none">
+              <rect x="10" y="16" width="28" height="26" rx="3" fill="#2563EB" stroke="#60A5FA" stroke-width="2"/>
+              <path d="M18 16V10A6 6 0 0 1 30 10V16" stroke="#93C5FD" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="prize-card-info">
+            <div class="prize-card-header-row">
+              <h3 class="prize-card-title">Every Registered Participant</h3>
+              <span class="prize-tag-certificate">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/></svg>
+                Certificate
+              </span>
+            </div>
+            <p class="prize-card-desc">
+              Prize in kind
+            </p>
+          </div>
+        </article>
+
+        <!-- 6. Top 50 Partcipants -->
+        <article class="prize-card">
+          <div class="prize-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="42" height="42" fill="none">
+              <rect x="8" y="18" width="32" height="24" rx="4" fill="#1E40AF" stroke="#3B82F6" stroke-width="2"/>
+              <rect x="6" y="12" width="36" height="8" rx="2" fill="#2563EB" stroke="#60A5FA" stroke-width="2"/>
+              <rect x="22" y="12" width="4" height="30" fill="#93C5FD"/>
+              <circle cx="24" cy="8" r="4" fill="#60A5FA"/>
+            </svg>
+          </div>
+          <div class="prize-card-info">
+            <div class="prize-card-header-row">
+              <h3 class="prize-card-title">Top 50 Partcipants</h3>
+              <span class="prize-tag-certificate">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/></svg>
+                Certificate
+              </span>
+            </div>
+            <p class="prize-card-desc">
+              Certificate of Achivement + Official Decodep Recognition
+            </p>
+          </div>
+        </article>
+
+        <!-- 7. Every eligible participant -->
+        <article class="prize-card">
+          <div class="prize-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="42" height="42" fill="none">
+              <rect x="8" y="18" width="32" height="24" rx="4" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2"/>
+              <rect x="6" y="12" width="36" height="8" rx="2" fill="#2563EB" stroke="#60A5FA" stroke-width="2"/>
+              <rect x="22" y="12" width="4" height="30" fill="#93C5FD"/>
+            </svg>
+          </div>
+          <div class="prize-card-info">
+            <div class="prize-card-header-row">
+              <h3 class="prize-card-title">Every eligible participant</h3>
+              <span class="prize-tag-certificate">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/></svg>
+                Certificate
+              </span>
+            </div>
+            <p class="prize-card-desc">
+              Certificate of Participation for every valid project submission that meets the event requirements.
+            </p>
+          </div>
+        </article>
+
+        <!-- 8. Participation Certificate (Full Width Balanced Bottom Card) -->
+        <article class="prize-card prize-full-card">
+          <div class="prize-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="42" height="42" fill="none">
+              <rect x="10" y="8" width="28" height="34" rx="3" fill="#1E40AF" stroke="#3B82F6" stroke-width="2"/>
+              <circle cx="24" cy="22" r="6" fill="#FFD400" stroke="#000" stroke-width="1.5"/>
+              <path d="M21 28L18 36L24 33L30 36L27 28" fill="#E8222E"/>
+            </svg>
+          </div>
+          <div class="prize-card-info">
+            <div class="prize-card-header-row">
+              <h3 class="prize-card-title">Participation Certificate</h3>
+              <span class="prize-tag-certificate">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3z"/></svg>
+                Certificate
+              </span>
+            </div>
+            <p class="prize-card-desc">
+              Official verified certificate for all active event participants
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div class="prizes-disclaimer">
+        <span>* All the prizes and certificate will be released within 30 days after the event is over</span>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: OFFICIAL WHATSAPP COMMUNITY & UPDATES HUB (Image 2)
+         ========================================================================= -->
+    <section class="community-section" id="community" aria-labelledby="community-title">
+      <div class="community-banner-wrap">
+        <div class="community-glow-sphere" aria-hidden="true"></div>
+
+        <div class="community-header">
+          <div class="community-pill-badge">
+            <span class="pulse-green-dot"></span>
+            <span>★ OFFICIAL COMMUNITY HUB ★</span>
+          </div>
+          <h2 id="community-title" class="community-main-title">
+            All that you need to know about <span class="highlight-green">Hackday 2.0</span>
+          </h2>
+          <p class="community-subtext">
+            MUST FOLLOW THESE PAGES For updates:
+          </p>
+        </div>
+
+        <div class="community-cards-grid">
+          <!-- Card 1: Official WhatsApp Channel -->
+          <article class="community-card channel-card">
+            <div class="community-card-icon-box">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="#25D366" aria-hidden="true">
+                <path d="M16 2C8.28 2 2 8.28 2 16c0 2.72.78 5.26 2.14 7.42L2 30l6.78-2.1A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.64c-2.3 0-4.46-.66-6.3-1.8l-.45-.27-4.22 1.3 1.33-4.1-.3-.48A11.59 11.59 0 0 1 4.36 16c0-6.42 5.22-11.64 11.64-11.64s11.64 5.22 11.64 11.64-5.22 11.64-11.64 11.64zm6.38-8.73c-.35-.18-2.07-1.02-2.39-1.14-.32-.12-.56-.18-.8.18-.23.35-.92 1.14-1.13 1.37-.2.23-.42.26-.77.09-.35-.18-1.48-.55-2.82-1.74-1.04-.93-1.74-2.08-1.95-2.43-.2-.35-.02-.54.15-.71.16-.16.35-.42.53-.62.18-.2.23-.35.35-.59.12-.23.06-.44-.03-.62-.09-.18-.8-1.92-1.1-2.63-.29-.69-.58-.6-.8-.61h-.68c-.23 0-.62.09-.95.44-.32.35-1.24 1.22-1.24 2.97 0 1.75 1.27 3.44 1.45 3.68.18.23 2.5 3.82 6.06 5.36.85.37 1.51.59 2.03.75.85.27 1.63.23 2.24.14.68-.1 2.07-.85 2.36-1.67.29-.82.29-1.53.2-1.67-.08-.15-.32-.24-.67-.42z"/>
+              </svg>
+              <span class="community-card-status">Broadcast</span>
+            </div>
+            
+            <div class="community-card-body">
+              <h3 class="community-card-heading">WhatsApp Channel</h3>
+              <p class="community-card-desc">
+                Follow for instant broadcast alerts, schedule updates, webinar links &amp; official announcements.
+              </p>
+              <div class="community-meta-row">
+                <span class="community-meta-pill">📢 Broadcasts</span>
+                <span class="community-meta-pill">⚡ Live Alerts</span>
+              </div>
+              <a href="https://whatsapp.com/channel/0029Vb8dO925kg7EH2Wtsl3R" target="_blank" rel="noopener noreferrer" class="btn-community-action btn-whatsapp-action clickable" aria-label="Follow DECODEP WhatsApp Channel">
+                <span>FOLLOW CHANNEL</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+              <a href="https://whatsapp.com/channel/0029Vb8dO925kg7EH2Wtsl3R" target="_blank" rel="noopener noreferrer" class="community-card-link-preview">
+                whatsapp.com/channel/decodep
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 2: Hackday 2.0 WhatsApp Group -->
+          <article class="community-card group-card">
+            <div class="community-card-icon-box">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="#25D366" aria-hidden="true">
+                <path d="M16 2C8.28 2 2 8.28 2 16c0 2.72.78 5.26 2.14 7.42L2 30l6.78-2.1A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.64c-2.3 0-4.46-.66-6.3-1.8l-.45-.27-4.22 1.3 1.33-4.1-.3-.48A11.59 11.59 0 0 1 4.36 16c0-6.42 5.22-11.64 11.64-11.64s11.64 5.22 11.64 11.64-5.22 11.64-11.64 11.64zm6.38-8.73c-.35-.18-2.07-1.02-2.39-1.14-.32-.12-.56-.18-.8.18-.23.35-.92 1.14-1.13 1.37-.2.23-.42.26-.77.09-.35-.18-1.48-.55-2.82-1.74-1.04-.93-1.74-2.08-1.95-2.43-.2-.35-.02-.54.15-.71.16-.16.35-.42.53-.62.18-.2.23-.35.35-.59.12-.23.06-.44-.03-.62-.09-.18-.8-1.92-1.1-2.63-.29-.69-.58-.6-.8-.61h-.68c-.23 0-.62.09-.95.44-.32.35-1.24 1.22-1.24 2.97 0 1.75 1.27 3.44 1.45 3.68.18.23 2.5 3.82 6.06 5.36.85.37 1.51.59 2.03.75.85.27 1.63.23 2.24.14.68-.1 2.07-.85 2.36-1.67.29-.82.29-1.53.2-1.67-.08-.15-.32-.24-.67-.42z"/>
+              </svg>
+              <span class="community-card-status group-status">Hackers Group</span>
+            </div>
+
+            <div class="community-card-body">
+              <h3 class="community-card-heading">WhatsApp Group</h3>
+              <p class="community-card-desc">
+                Connect directly with 400+ participants, match teammates, brainstorm &amp; discuss problem statements.
+              </p>
+              <div class="community-meta-row">
+                <span class="community-meta-pill">🤝 Teammates</span>
+                <span class="community-meta-pill">💬 Active Chat</span>
+              </div>
+              <a href="https://chat.whatsapp.com/HXGcZ4vuo56CcxMmMaVnoK" target="_blank" rel="noopener noreferrer" class="btn-community-action btn-whatsapp-action clickable" aria-label="Join Hackday 2.0 WhatsApp Group">
+                <span>JOIN GROUP</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+              <a href="https://chat.whatsapp.com/HXGcZ4vuo56CcxMmMaVnoK" target="_blank" rel="noopener noreferrer" class="community-card-link-preview">
+                chat.whatsapp.com/hackday
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 3: Official Instagram -->
+          <article class="community-card instagram-card">
+            <div class="community-card-icon-box">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#E1306C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+              <span class="community-card-status instagram-status">Visual Stories</span>
+            </div>
+
+            <div class="community-card-body">
+              <h3 class="community-card-heading">Instagram</h3>
+              <p class="community-card-desc">
+                Catch exclusive reels, speaker reveals, hackathon memes, campus buzz &amp; live behind-the-scenes.
+              </p>
+              <div class="community-meta-row">
+                <span class="community-meta-pill">📸 Reels &amp; Stories</span>
+                <span class="community-meta-pill">✨ Highlights</span>
+              </div>
+              <a href="https://instagram.com/officialdecodep" target="_blank" rel="noopener noreferrer" class="btn-community-action btn-instagram-action clickable" aria-label="Follow DECODEP Instagram">
+                <span>FOLLOW INSTAGRAM</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+              <a href="https://instagram.com/officialdecodep" target="_blank" rel="noopener noreferrer" class="community-card-link-preview">
+                instagram.com/officialdecodep
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 4: Official LinkedIn -->
+          <article class="community-card linkedin-card">
+            <div class="community-card-icon-box">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="#0A66C2" aria-hidden="true">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.53 1.53 0 0 0 1.54-1.53c0-.85-.69-1.54-1.54-1.54s-1.53.69-1.53 1.54a1.53 1.53 0 0 0 1.53 1.53m1.4 9.74v-8.37H5.06v8.37h2.8z"/>
+              </svg>
+              <span class="community-card-status linkedin-status">Professional</span>
+            </div>
+
+            <div class="community-card-body">
+              <h3 class="community-card-heading">LinkedIn</h3>
+              <p class="community-card-desc">
+                Network with judges, mentors &amp; partners, showcase your project &amp; explore hiring opportunities.
+              </p>
+              <div class="community-meta-row">
+                <span class="community-meta-pill">💼 Networking</span>
+                <span class="community-meta-pill">🚀 Opportunities</span>
+              </div>
+              <a href="https://www.linkedin.com/company/officialdecodep/" target="_blank" rel="noopener noreferrer" class="btn-community-action btn-linkedin-action clickable" aria-label="Connect DECODEP LinkedIn">
+                <span>CONNECT LINKEDIN</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/company/officialdecodep/" target="_blank" rel="noopener noreferrer" class="community-card-link-preview">
+                linkedin.com/company/officialdecodep
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: FREE WEBINAR (LIVE BADGE) & LOCK LOGIC
          ========================================================================= -->
     <section class="webinar-section" id="webinar" aria-labelledby="webinar-heading">
       <div class="section-header-comic">
@@ -496,7 +859,7 @@
 
       <div class="webinar-cards-grid">
         <!-- Session 1: Hackathon 101 -->
-        <article class="webinar-card is-locked" id="webinar-card-1">
+        <article class="webinar-card is-locked" id="webinar-card-1" aria-label="Webinar Session 1: Hackathon 101">
           <!-- Frosted Padlock Lock Overlay -->
           <div class="webinar-lock-overlay" aria-hidden="true">
             <div class="lock-padlock-icon">🔒</div>
@@ -504,19 +867,23 @@
             <p class="lock-hint-text">Click card for alert</p>
           </div>
 
-          <div>
-            <div class="webinar-session-badge">SESSION 01</div>
-            <h3 class="webinar-card-title">HACKATHON 101</h3>
-            <ul class="webinar-bullets">
-              <li><span class="webinar-bullet-icon">✦</span> What is a Hackathon?</li>
-              <li><span class="webinar-bullet-icon">✦</span> How to choose a problem?</li>
-              <li><span class="webinar-bullet-icon">✦</span> Tips to win &amp; present</li>
+          <!-- Session 1 Photo Graphic -->
+          <div class="webinar-poster-wrap">
+            <img src="img/webinar_session1.png" alt="Webinar Session 1: Hackathon 101 - What is a Hackathon, How to choose a problem, Tips to win &amp; present" class="webinar-poster-img" loading="lazy">
+          </div>
+
+          <div class="sr-only">
+            <span>SESSION 01: HACKATHON 101</span>
+            <ul>
+              <li>What is a Hackathon?</li>
+              <li>How to choose a problem?</li>
+              <li>Tips to win &amp; present</li>
             </ul>
           </div>
         </article>
 
         <!-- Session 2: Website Development -->
-        <article class="webinar-card is-locked" id="webinar-card-2">
+        <article class="webinar-card is-locked" id="webinar-card-2" aria-label="Webinar Session 2: Website Development">
           <!-- Frosted Padlock Lock Overlay -->
           <div class="webinar-lock-overlay" aria-hidden="true">
             <div class="lock-padlock-icon">🔒</div>
@@ -524,19 +891,23 @@
             <p class="lock-hint-text">Click card for alert</p>
           </div>
 
-          <div>
-            <div class="webinar-session-badge">SESSION 02</div>
-            <h3 class="webinar-card-title">WEBSITE DEVELOPMENT</h3>
-            <ul class="webinar-bullets">
-              <li><span class="webinar-bullet-icon">✦</span> How to plan a website?</li>
-              <li><span class="webinar-bullet-icon">✦</span> Tools &amp; tech stack</li>
-              <li><span class="webinar-bullet-icon">✦</span> Live demo &amp; basic setup</li>
+          <!-- Session 2 Photo Graphic -->
+          <div class="webinar-poster-wrap">
+            <img src="img/webinar_session2.png" alt="Webinar Session 2: Website Development - How to plan a website, Tools &amp; tech stack, Live demo &amp; basic setup" class="webinar-poster-img" loading="lazy">
+          </div>
+
+          <div class="sr-only">
+            <span>SESSION 02: WEBSITE DEVELOPMENT</span>
+            <ul>
+              <li>How to plan a website?</li>
+              <li>Tools &amp; tech stack</li>
+              <li>Live demo &amp; basic setup</li>
             </ul>
           </div>
         </article>
 
         <!-- Session 3: Vibe Coding -->
-        <article class="webinar-card is-locked" id="webinar-card-3">
+        <article class="webinar-card is-locked" id="webinar-card-3" aria-label="Webinar Session 3: Vibe Coding">
           <!-- Frosted Padlock Lock Overlay -->
           <div class="webinar-lock-overlay" aria-hidden="true">
             <div class="lock-padlock-icon">🔒</div>
@@ -544,14 +915,18 @@
             <p class="lock-hint-text">Click card for alert</p>
           </div>
 
-          <div>
-            <div class="webinar-session-badge">SESSION 03</div>
-            <h3 class="webinar-card-title">VIBE CODING</h3>
-            <ul class="webinar-bullets">
-              <li><span class="webinar-bullet-icon">✦</span> What is Vibe Coding?</li>
-              <li><span class="webinar-bullet-icon">✦</span> How to use AI effectively?</li>
-              <li><span class="webinar-bullet-icon">✦</span> Build faster with AI</li>
-              <li><span class="webinar-bullet-icon">✦</span> Live practical session</li>
+          <!-- Session 3 Photo Graphic -->
+          <div class="webinar-poster-wrap">
+            <img src="img/webinar_session3.png" alt="Webinar Session 3: Vibe Coding - What is Vibe Coding, How to use AI effectively, Build faster with AI, Live practical session" class="webinar-poster-img" loading="lazy">
+          </div>
+
+          <div class="sr-only">
+            <span>SESSION 03: VIBE CODING</span>
+            <ul>
+              <li>What is Vibe Coding?</li>
+              <li>How to use AI effectively?</li>
+              <li>Build faster with AI</li>
+              <li>Live practical session</li>
             </ul>
           </div>
         </article>
@@ -605,7 +980,7 @@
   </main>
 
   <!-- =========================================================================
-       FOOTER
+       FOOTER & SPONSORS / COLLABORATE PARTNERS (Down at the bottom)
        ========================================================================= -->
   <footer class="footer-section" role="contentinfo">
     <div class="footer-inner">
@@ -638,7 +1013,7 @@
           </div>
         </div>
 
-        <!-- Center Column: Same Madness, Bigger Ideas and Social Links -->
+        <!-- Center / Right Column: Same Madness, Bigger Ideas and Social Links -->
         <div class="footer-center-col">
           <div class="footer-madness-quote">
             "SAME MADNESS, BIGGER IDEAS!"
@@ -663,15 +1038,16 @@
                 <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.53 1.53 0 0 0 1.54-1.53c0-.85-.69-1.54-1.54-1.54s-1.53.69-1.53 1.54a1.53 1.53 0 0 0 1.53 1.53m1.4 9.74v-8.37H5.06v8.37h2.8z"/>
               </svg>
             </a>
-            <a href="mailto:officialdecodep@gmail.com" class="social-btn clickable" aria-label="Email Us" title="Email: officialdecodep@gmail.com">
-              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            <a href="https://whatsapp.com/channel/0029Vb8dO925kg7EH2Wtsl3R" target="_blank" rel="noopener noreferrer" class="social-btn clickable" aria-label="WhatsApp Channel" title="WhatsApp Channel">
+              <svg class="social-svg-icon" viewBox="0 0 32 32" fill="#25D366" width="18" height="18">
+                <path d="M16 2C8.28 2 2 8.28 2 16c0 2.72.78 5.26 2.14 7.42L2 30l6.78-2.1A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.64c-2.3 0-4.46-.66-6.3-1.8l-.45-.27-4.22 1.3 1.33-4.1-.3-.48A11.59 11.59 0 0 1 4.36 16c0-6.42 5.22-11.64 11.64-11.64s11.64 5.22 11.64 11.64-5.22 11.64-11.64 11.64zm6.38-8.73c-.35-.18-2.07-1.02-2.39-1.14-.32-.12-.56-.18-.8.18-.23.35-.92 1.14-1.13 1.37-.2.23-.42.26-.77.09-.35-.18-1.48-.55-2.82-1.74-1.04-.93-1.74-2.08-1.95-2.43-.2-.35-.02-.54.15-.71.16-.16.35-.42.53-.62.18-.2.23-.35.35-.59.12-.23.06-.44-.03-.62-.09-.18-.8-1.92-1.1-2.63-.29-.69-.58-.6-.8-.61h-.68c-.23 0-.62.09-.95.44-.32.35-1.24 1.22-1.24 2.97 0 1.75 1.27 3.44 1.45 3.68.18.23 2.5 3.82 6.06 5.36.85.37 1.51.59 2.03.75.85.27 1.63.23 2.24.14.68-.1 2.07-.85 2.36-1.67.29-.82.29-1.53.2-1.67-.08-.15-.32-.24-.67-.42z"/>
               </svg>
             </a>
-            <a href="tel:+919363471419" class="social-btn clickable" aria-label="Call Us" title="Phone: +91 93634 71419">
-              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            <a href="https://chat.whatsapp.com/HXGcZ4vuo56CcxMmMaVnoK" target="_blank" rel="noopener noreferrer" class="social-btn clickable" aria-label="WhatsApp Community Group" title="WhatsApp Group">
+              <svg class="social-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
             </a>
             <a href="https://discord.gg/c8D7jDgWX" target="_blank" rel="noopener noreferrer" class="social-btn clickable" aria-label="Join Discord Server" title="Discord: discord.gg/c8D7jDgWX">
@@ -687,18 +1063,43 @@
           </div>
         </div>
 
-        <!-- Right Column: Collaborate Partner (Logo on top in right corner, label underneath) -->
-        <div class="footer-collab-col">
-          <a href="https://uptoskills.com/" target="_blank" rel="noopener noreferrer" class="collab-partner-card clickable" title="UptoSkills — Let's Make Freshers Employable!">
-            <img src="img/uptoskills_logo.png?v=3" alt="UptoSkills Logo" class="collab-partner-logo">
-          </a>
-          <span class="collab-partner-label">★ Collaborate Partner ★</span>
+        <!-- Right Column: Sponsors & Collaborate Partners in Right Corner -->
+        <div class="footer-collab-col" id="partners" aria-label="Sponsors and Collaborate Partners">
+          <div class="footer-partners-header">
+            <h3 class="footer-partners-title">
+              <span class="star-accent">★</span> SPONSORS &amp; COLLABORATE PARTNERS <span class="star-accent">★</span>
+            </h3>
+          </div>
+
+          <div class="partners-grid-4">
+            <!-- 1. Unstop Card -->
+            <a href="https://unstop.com/o/zTIUx2V?lb=CJ" target="_blank" rel="noopener noreferrer" class="partner-single-card clickable" title="Unstop — Official Hackathon Platform">
+              <img src="img/unstop_circle_logo.svg" alt="Unstop Logo" class="partner-logo-img unstop-logo-badge">
+            </a>
+
+            <!-- 2. Tech Turf Card -->
+            <div class="partner-single-card" title="Tech Turf — Building Technology for Tomorrow™">
+              <img src="img/techturf_logo.svg" alt="Tech Turf Logo" class="partner-logo-img techturf-logo-badge">
+            </div>
+
+            <!-- 3. UptoSkills Card -->
+            <a href="https://uptoskills.com/" target="_blank" rel="noopener noreferrer" class="partner-single-card clickable" title="UptoSkills — Let's Make Freshers Employable!">
+              <img src="img/uptoskills_logo.png?v=3" alt="UptoSkills Logo" class="partner-logo-img uptoskills-logo-badge">
+            </a>
+
+            <!-- 4. GO. Card -->
+            <div class="partner-single-card" title="GO. Sponsor">
+              <img src="img/go_logo.svg" alt="GO. Logo" class="partner-logo-img go-logo-badge">
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <div class="footer-counter-badge">
-          <span>⚡ Over <span id="footer-hacker-count">248</span> Hackers Ready to Dominate!</span>
+        <!-- Live Participants Counter fetched from Unstop (Replaces old static 248) -->
+        <div class="footer-counter-badge live-counter-badge" id="live-unstop-badge">
+          <span class="live-pulse-dot"></span>
+          <span>LIVE ON UNSTOP: <strong id="footer-live-count">433</strong>+ Hackers Registered!</span>
         </div>
         <div class="footer-disclaimer">
           Fan-style tribute design; characters belong to their respective owners.
@@ -711,6 +1112,6 @@
   <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
   <!-- Main JavaScript Engine -->
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>

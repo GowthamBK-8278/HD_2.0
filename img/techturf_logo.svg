@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 140" width="340" height="140">
+  <!-- TT Icon with Orbiting Swoosh -->
+  <g transform="translate(100, 4)">
+    <!-- Orange/Gold Orbital Swoosh Ring -->
+    <ellipse cx="65" cy="40" rx="58" ry="24" fill="none" stroke="#F59E0B" stroke-width="7" transform="rotate(-18 65 40)" stroke-linecap="round"/>
+    
+    <!-- Left T (slightly smaller/offset back) -->
+    <path d="M42 22 H64 V32 H57 V68 H49 V32 H42 Z" fill="#0045A5" opacity="0.9"/>
+    
+    <!-- Right Main T (front 3D block) -->
+    <path d="M54 18 H90 V30 H77 V72 H67 V30 H54 Z" fill="#0260CD"/>
+    <path d="M90 18 L96 24 V34 L90 30 Z" fill="#003E94"/>
+    <path d="M77 72 L83 68 V34 L77 30 Z" fill="#003E94"/>
+    
+    <!-- Front Swoosh Arc to create 3D wrap depth -->
+    <path d="M22 48 C 30 58, 60 64, 98 52" fill="none" stroke="#F59E0B" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  
+  <!-- TECH TURF Text -->
+  <text x="170" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#0F172A" text-anchor="middle" letter-spacing="1.5">TECH TURF</text>
+  
+  <!-- Subtitle: Building Technology for Tomorrow™ -->
+  <text x="170" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="600" fill="#334155" text-anchor="middle" letter-spacing="0.2">Building Technology for Tomorrow™</text>
+</svg>

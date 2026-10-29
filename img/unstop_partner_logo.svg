@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
+  <g transform="translate(10, 0)">
+    <!-- Navy Blue Circle -->
+    <circle cx="60" cy="60" r="50" fill="#0d234b" />
+    <text x="60" y="67" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-0.5">unstop</text>
+  </g>
+  <text x="135" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="#0d234b" letter-spacing="-0.8">unstop</text>
+</svg>

@@ -19,8 +19,9 @@ const EVENT_CONFIG = {
   webinar_unlocked: false,
   webinar_link: 'https://meet.google.com/decode-hackday-live',
   unstop_url: 'https://unstop.com/o/zTIUx2V?lb=CJ',
+  unstop_competition_id: '1773120',
   event_date: '2026-12-19T09:00:00',
-  base_clicks: 248
+  default_participant_count: 426
 };
 
 
@@ -768,10 +769,22 @@ function initMobileNav() {
   const navMenu = document.getElementById('nav-menu');
   if (!hamburgerBtn || !navMenu) return;
 
-  const toggleMenu = () => {
+  let lastScrollY = window.scrollY;
+
+  const closeMenu = () => {
+    if (navMenu.classList.contains('is-open')) {
+      navMenu.classList.remove('is-open');
+      hamburgerBtn.classList.remove('is-active');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    }
+  };
+
+  const toggleMenu = (e) => {
+    if (e) e.stopPropagation();
     const isOpen = navMenu.classList.toggle('is-open');
     hamburgerBtn.classList.toggle('is-active', isOpen);
     hamburgerBtn.setAttribute('aria-expanded', isOpen);
+    lastScrollY = window.scrollY;
     CartoonAudio.playPop(isOpen ? 520 : 360, 0.06);
   };
 
@@ -780,29 +793,44 @@ function initMobileNav() {
   // Close menu when clicking any nav link
   document.querySelectorAll('.nav-link, .nav-register-cta').forEach(link => {
     link.addEventListener('click', () => {
-      if (navMenu.classList.contains('is-open')) {
-        navMenu.classList.remove('is-open');
-        hamburgerBtn.classList.remove('is-active');
-        hamburgerBtn.setAttribute('aria-expanded', 'false');
-      }
+      closeMenu();
     });
   });
 
-  // Close menu when clicking outside
+  // Automatically close/disappear mobile menu when the page is scrolled
+  window.addEventListener('scroll', () => {
+    if (navMenu.classList.contains('is-open')) {
+      if (Math.abs(window.scrollY - lastScrollY) > 8) {
+        closeMenu();
+      }
+    }
+  }, { passive: true });
+
+  // Close menu on touchmove (drag/scroll on mobile) outside the menu
+  document.addEventListener('touchmove', (e) => {
+    if (navMenu.classList.contains('is-open') && !navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+      closeMenu();
+    }
+  }, { passive: true });
+
+  // Close menu when tapping/clicking outside
   document.addEventListener('click', (e) => {
     if (navMenu.classList.contains('is-open') && !navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
-      navMenu.classList.remove('is-open');
-      hamburgerBtn.classList.remove('is-active');
-      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      closeMenu();
     }
   });
+
+  // Close menu on touchstart outside
+  document.addEventListener('touchstart', (e) => {
+    if (navMenu.classList.contains('is-open') && !navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+      closeMenu();
+    }
+  }, { passive: true });
 
   // Close menu on Escape key press
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
-      navMenu.classList.remove('is-open');
-      hamburgerBtn.classList.remove('is-active');
-      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      closeMenu();
       hamburgerBtn.focus();
     }
   });
@@ -810,9 +838,7 @@ function initMobileNav() {
   // Automatically close mobile menu if viewport resized to desktop width
   window.addEventListener('resize', () => {
     if (window.innerWidth > 1024 && navMenu.classList.contains('is-open')) {
-      navMenu.classList.remove('is-open');
-      hamburgerBtn.classList.remove('is-active');
-      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      closeMenu();
     }
   });
 }
@@ -843,6 +869,86 @@ function initBackToTop() {
 }
 
 // ==============================================================================
+// 10. LIVE UNSTOP PARTICIPANT COUNTER FETCHER & ANIMATOR
+// ==============================================================================
+function initLiveUnstopCounter() {
+  const elements = [
+    document.getElementById('footer-live-count'),
+    document.getElementById('hero-live-count')
+  ];
+
+  let currentCount = EVENT_CONFIG.default_participant_count || 426;
+
+  function animateNumber(targetVal) {
+    elements.forEach(el => {
+      if (!el) return;
+      const start = parseInt(el.textContent, 10) || 0;
+      const range = targetVal - start;
+      const duration = 1200;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 4);
+        const current = Math.floor(start + range * ease);
+        el.textContent = current;
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          el.textContent = targetVal;
+        }
+      }
+      requestAnimationFrame(update);
+    });
+  }
+
+  async function fetchLiveCount() {
+    const compId = EVENT_CONFIG.unstop_competition_id || '1773120';
+    try {
+      const response = await fetch(`https://unstop.com/api/public/competition/${compId}`, {
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const count = data?.data?.competition?.registerCount || data?.data?.competition?.players_count;
+        if (count && !isNaN(count)) {
+          const num = parseInt(count, 10);
+          if (num > 0) {
+            currentCount = num;
+            animateNumber(currentCount);
+            return;
+          }
+        }
+      }
+    } catch (e) {
+      try {
+        const proxyRes = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://unstop.com/api/public/competition/${compId}`)}`);
+        if (proxyRes.ok) {
+          const proxyData = await proxyRes.json();
+          const parsed = JSON.parse(proxyData.contents);
+          const count = parsed?.data?.competition?.registerCount || parsed?.data?.competition?.players_count;
+          if (count && !isNaN(count)) {
+            const num = parseInt(count, 10);
+            if (num > 0) {
+              currentCount = num;
+              animateNumber(currentCount);
+              return;
+            }
+          }
+        }
+      } catch (err) {}
+    }
+    // Animate current verified count
+    animateNumber(currentCount);
+  }
+
+  fetchLiveCount();
+  // Poll every 60 seconds
+  setInterval(fetchLiveCount, 60000);
+}
+
+// ==============================================================================
 // INITIALIZATION ON DOM READY
 // ==============================================================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -852,6 +958,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Responsive Mobile Navigation & Back to Top
   initMobileNav();
   initBackToTop();
+
+  // Live Unstop participant counter
+  initLiveUnstopCounter();
 
   // Three.js 3D hero scene
   initThreeScene();
