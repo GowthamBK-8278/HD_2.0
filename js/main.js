@@ -971,11 +971,13 @@ function initShinchanPullFeature() {
 
   function calculateMaxOffset() {
     if (window.innerWidth <= 480) {
-      return Math.min(260, Math.max(160, window.innerWidth - 140));
-    } else if (window.innerWidth <= 992) {
-      return 360;
+      return 140;
+    } else if (window.innerWidth <= 768) {
+      return 190;
+    } else if (window.innerWidth <= 1024) {
+      return 220;
     }
-    return 440;
+    return 260;
   }
 
   let maxOffset = calculateMaxOffset();
