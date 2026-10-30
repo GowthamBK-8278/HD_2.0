@@ -21,7 +21,7 @@ const EVENT_CONFIG = {
   unstop_url: 'https://unstop.com/o/zTIUx2V?lb=CJ',
   unstop_competition_id: '1773120',
   event_date: '2026-12-19T09:00:00',
-  default_participant_count: 426
+  default_participant_count: 542
 };
 
 
@@ -877,12 +877,16 @@ function initLiveUnstopCounter() {
     document.getElementById('hero-live-count')
   ];
 
-  let currentCount = EVENT_CONFIG.default_participant_count || 426;
+  let currentCount = parseInt(localStorage.getItem('hackday_unstop_reg_count'), 10) || EVENT_CONFIG.default_participant_count || 542;
 
   function animateNumber(targetVal) {
     elements.forEach(el => {
       if (!el) return;
       const start = parseInt(el.textContent, 10) || 0;
+      if (start === targetVal) {
+        el.textContent = targetVal;
+        return;
+      }
       const range = targetVal - start;
       const duration = 1200;
       const startTime = performance.now();
@@ -905,47 +909,75 @@ function initLiveUnstopCounter() {
 
   async function fetchLiveCount() {
     const compId = EVENT_CONFIG.unstop_competition_id || '1773120';
+    let count = null;
+
+    // Strategy 1: Edge Proxy with guaranteed global CORS (Bypasses CloudFront WAF)
     try {
-      const response = await fetch(`https://unstop.com/api/public/competition/${compId}`, {
-        headers: { 'Accept': 'application/json' }
+      const res = await fetch(`https://r.jina.ai/https://unstop.com/api/public/competition/${compId}`, {
+        headers: { 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(6000)
       });
-      if (response.ok) {
-        const data = await response.json();
-        const count = data?.data?.competition?.registerCount || data?.data?.competition?.players_count;
-        if (count && !isNaN(count)) {
-          const num = parseInt(count, 10);
-          if (num > 0) {
-            currentCount = num;
-            animateNumber(currentCount);
-            return;
-          }
+      if (res.ok) {
+        const text = await res.text();
+        const regMatch = text.match(/"registerCount"\s*:\s*(\d+)/);
+        const playersMatch = text.match(/"players_count"\s*:\s*(\d+)/);
+        const val = regMatch ? parseInt(regMatch[1], 10) : (playersMatch ? parseInt(playersMatch[1], 10) : null);
+        if (val && !isNaN(val) && val > 0) {
+          count = val;
         }
       }
     } catch (e) {
+      // Fall through to backup strategies
+    }
+
+    // Strategy 2: Direct Unstop API
+    if (!count) {
       try {
-        const proxyRes = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://unstop.com/api/public/competition/${compId}`)}`);
+        const response = await fetch(`https://unstop.com/api/public/competition/${compId}`, {
+          headers: { 'Accept': 'application/json' },
+          signal: AbortSignal.timeout(4000)
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const val = data?.data?.competition?.registerCount || data?.data?.competition?.players_count;
+          if (val && !isNaN(val)) {
+            count = parseInt(val, 10);
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Strategy 3: AllOrigins proxy fallback
+    if (!count) {
+      try {
+        const proxyRes = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://unstop.com/api/public/competition/${compId}`)}`, {
+          signal: AbortSignal.timeout(4000)
+        });
         if (proxyRes.ok) {
           const proxyData = await proxyRes.json();
           const parsed = JSON.parse(proxyData.contents);
-          const count = parsed?.data?.competition?.registerCount || parsed?.data?.competition?.players_count;
-          if (count && !isNaN(count)) {
-            const num = parseInt(count, 10);
-            if (num > 0) {
-              currentCount = num;
-              animateNumber(currentCount);
-              return;
-            }
+          const val = parsed?.data?.competition?.registerCount || parsed?.data?.competition?.players_count;
+          if (val && !isNaN(val)) {
+            count = parseInt(val, 10);
           }
         }
       } catch (err) {}
     }
-    // Animate current verified count
-    animateNumber(currentCount);
+
+    if (count && count > 0) {
+      currentCount = count;
+      try {
+        localStorage.setItem('hackday_unstop_reg_count', String(count));
+      } catch (e) {}
+      animateNumber(currentCount);
+    } else {
+      animateNumber(currentCount);
+    }
   }
 
   fetchLiveCount();
-  // Poll every 60 seconds
-  setInterval(fetchLiveCount, 60000);
+  // Poll every 45 seconds for real-time live registrations
+  setInterval(fetchLiveCount, 45000);
 }
 
 // ==============================================================================
