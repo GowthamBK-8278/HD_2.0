@@ -756,8 +756,7 @@ function initPreloader() {
       setTimeout(() => {
         preloader.classList.add('fade-out');
         CartoonAudio.playSuccess();
-        triggerShinchanPoster3DEntrance();
-      }, 400);
+              }, 400);
     }
   }, 160);
 }
@@ -950,199 +949,155 @@ function initLiveUnstopCounter() {
 }
 
 // ==============================================================================
-// SHINCHAN 3D HERO MASCOT & PRESENTATION SYSTEM (WONDERFUL 3D METHOD)
+// SHINCHAN INTERACTIVE POSTER PULL-TO-REVEAL SYSTEM
 // ==============================================================================
-let isShinchan3DAnimating = false;
+function initShinchanPullFeature() {
+  const stage = document.getElementById('hero-pull-stage');
+  const pullContainer = document.getElementById('shinchan-pull-container');
+  const sloganBadge = document.getElementById('pull-me-slogan');
+  const bubbleText = document.getElementById('bubble-text');
+  const posterFrame = document.getElementById('hero-poster-frame');
+  const pullAgainBtn = document.getElementById('btn-pull-again');
 
-function triggerShinchanPoster3DEntrance(force = false) {
-  const wrapper = document.getElementById('hero-poster-3d-wrapper');
-  const btn = document.getElementById('shinchan-mascot-btn');
-  const bubble = document.getElementById('shinchan-bubble');
-  if (!wrapper) return;
+  if (!stage || !pullContainer || !posterFrame) return;
 
-  if (isShinchan3DAnimating && !force) return;
-  isShinchan3DAnimating = true;
-
-  // Restart entrance animation class cleanly
-  wrapper.classList.remove('is-3d-entering');
-  void wrapper.offsetWidth; // force reflow
-  wrapper.classList.add('is-3d-entering');
-
-  // Comic audio fanfare & confetti right when poster swings down in 3D
-  setTimeout(() => {
-    CartoonAudio.playSuccess();
-    // Confetti burst from poster center
-    const rect = wrapper.getBoundingClientRect();
-    if (typeof Confetti !== 'undefined' && Confetti.burst) {
-      Confetti.burst(rect.left + rect.width / 2, rect.top + rect.height * 0.45);
-    }
-  }, 600);
-
-  // Set entrance speech bubble
-  if (bubble) {
-    const textSpan = bubble.querySelector('span') || bubble;
-    textSpan.textContent = 'Oi oi! Dec 19-20! Registrations are OPEN! ⚡';
-    bubble.style.transform = 'scale(0)';
-    setTimeout(() => {
-      bubble.style.transform = 'scale(1.15)';
-      setTimeout(() => {
-        bubble.style.transform = '';
-      }, 250);
-    }, 1100);
-  }
-
-  // Once entrance finishes at 1.8s, allow smooth 3D mouse parallax tracking
-  setTimeout(() => {
-    isShinchan3DAnimating = false;
-    wrapper.classList.remove('is-3d-entering');
-  }, 1850);
-}
-
-function initShinchanMascot() {
-  const wrapper = document.getElementById('hero-poster-3d-wrapper');
-  const stage = document.getElementById('hero-visual-stage');
-  const btn = document.getElementById('shinchan-mascot-btn');
-  const bubble = document.getElementById('shinchan-bubble');
-  const replayBtn = document.getElementById('btn-replay-3d');
-  const navMascot = document.getElementById('nav-sitting-shinchan');
-
-  if (!btn) return;
-
-  const funnyQuotes = [
-    "Oi oi! Did you register yet? ⚡",
+  let isPlaced = false;
+  let quoteIndex = 0;
+  const celebrationQuotes = [
+    "BWAHAHA! WE DID IT! 🥳 HACKDAY 2.0 IS LIVE!",
+    "Look at my streetwear drip! Cool right? 😎",
     "Action Kamen says: REGISTER NOW! 🦸",
-    "Look at my legs kicking! Hehehe! 😜",
-    "Misae won't let me hack without you! 😉",
+    "Dec 19-20! Same madness, bigger ideas! ⚡",
+    "Misae won't let me hack without you! 😜",
     "Buri Buri Zaemon will take the 1st prize! 🐷",
     "Free registration! Even Shiro knows that! 🐶",
-    "Good ideas happen here! Let's code! 🚀",
-    "Look at my bushy eyebrows wiggle! Bwahaha! ✨"
+    "Good ideas happen here! Let's code! 🚀"
   ];
-  let quoteIndex = 0;
-  let bubbleTimeout = null;
 
-  // Trigger initial 3D entrance if preloader is not present or already faded
-  const preloader = document.getElementById('preloader');
-  if (!preloader || preloader.classList.contains('fade-out')) {
+  // Function to pull the poster smoothly into place
+  function pullPosterIntoPlace() {
+    if (isPlaced) return;
+    isPlaced = true;
+
+    // Cartoon pull grunt sound
+    CartoonAudio.playPop(320, 0.14);
     setTimeout(() => {
-      triggerShinchanPoster3DEntrance();
-    }, 300);
-  }
+      CartoonAudio.playPop(480, 0.14);
+    }, 150);
 
-  // Replay 3D Intro Button
-  if (replayBtn) {
-    replayBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      CartoonAudio.playPop(560, 0.1);
-      triggerShinchanPoster3DEntrance(true);
-      if (typeof showWebinarToast === 'function') {
-        showWebinarToast('🎬 Replaying Shinchan 3D Entrance!');
+    // Switch stage state to placed
+    stage.classList.remove('is-unpulled');
+    stage.classList.add('is-placed');
+
+    // Confetti and fanfare when poster reaches center (at ~450ms)
+    setTimeout(() => {
+      CartoonAudio.playSuccess();
+      const rect = posterFrame.getBoundingClientRect();
+      if (typeof Confetti !== 'undefined' && Confetti.burst) {
+        Confetti.burst(rect.left + rect.width / 2, rect.top + rect.height * 0.45);
       }
-    });
+
+      if (bubbleText) {
+        bubbleText.textContent = celebrationQuotes[0];
+      }
+
+      if (typeof showWebinarToast === 'function') {
+        showWebinarToast('🎉 POSTER UNLOCKED! DEC 19–20, 2026!');
+      }
+    }, 450);
   }
 
-  // Interactive Shinchan click reaction (3D flip dance, audio, confetti, quotes)
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
+  // Function to reset and pull again
+  function resetPosterPull() {
+    isPlaced = false;
+    stage.classList.remove('is-placed');
+    stage.classList.add('is-unpulled');
 
-    // Funny cartoon audio
-    CartoonAudio.playPop(520, 0.12);
-    setTimeout(() => {
-      CartoonAudio.playPop(780, 0.15);
-    }, 120);
+    CartoonAudio.playPop(380, 0.1);
 
-    // Confetti burst from Shinchan
-    const rect = btn.getBoundingClientRect();
-    if (typeof Confetti !== 'undefined' && Confetti.burst) {
-      Confetti.burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    if (bubbleText) {
+      bubbleText.textContent = "Oi oi! It's too heavy! PULL ME! 😣💦";
     }
 
-    // Trigger 3D flip animation
-    btn.classList.remove('is-dancing');
-    void btn.offsetWidth; // trigger reflow
-    btn.classList.add('is-dancing');
+    if (typeof showWebinarToast === 'function') {
+      showWebinarToast('🔄 Shinchan is ready to pull again!');
+    }
+  }
 
-    // Cycle funny quote with scale pop
-    quoteIndex = (quoteIndex + 1) % funnyQuotes.length;
-    if (bubble) {
-      const textSpan = bubble.querySelector('span') || bubble;
-      textSpan.textContent = funnyQuotes[quoteIndex];
-      bubble.style.transform = 'scale(1.18)';
-      clearTimeout(bubbleTimeout);
-      bubbleTimeout = setTimeout(() => {
-        bubble.style.transform = '';
-      }, 350);
+  // Click on Shinchan / Slogan to pull or celebrate
+  pullContainer.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    if (!isPlaced) {
+      pullPosterIntoPlace();
+    } else {
+      // Celebrating interaction: fist pump bounce, audio, confetti, quote cycle
+      CartoonAudio.playPop(520, 0.12);
+      setTimeout(() => {
+        CartoonAudio.playPop(780, 0.15);
+      }, 120);
+
+      const rect = pullContainer.getBoundingClientRect();
+      if (typeof Confetti !== 'undefined' && Confetti.burst) {
+        Confetti.burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      }
+
+      // Cycle quotes
+      quoteIndex = (quoteIndex + 1) % celebrationQuotes.length;
+      if (bubbleText) {
+        bubbleText.textContent = celebrationQuotes[quoteIndex];
+      }
+
+      // Extra celebratory bounce
+      pullContainer.style.transform = 'scale(1.15) translateY(-10px)';
+      setTimeout(() => {
+        pullContainer.style.transform = '';
+      }, 300);
     }
   });
 
-  // Dynamic 3D Mouse Parallax Tracking
-  if (stage && wrapper) {
-    let mouseParallaxRAF = null;
+  // Also clicking the poster frame when unpulled triggers the pull
+  posterFrame.addEventListener('click', () => {
+    if (!isPlaced) {
+      pullPosterIntoPlace();
+    }
+  });
 
-    const handlePointerMove = (e) => {
-      if (isShinchan3DAnimating) return;
-
-      if (mouseParallaxRAF) cancelAnimationFrame(mouseParallaxRAF);
-      mouseParallaxRAF = requestAnimationFrame(() => {
-        const rect = wrapper.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        const deltaX = (e.clientX - centerX) / (window.innerWidth / 2);
-        const deltaY = (e.clientY - centerY) / (window.innerHeight / 2);
-
-        // Clamp values (-1 to 1)
-        const clampedX = Math.max(-1, Math.min(1, deltaX));
-        const clampedY = Math.max(-1, Math.min(1, deltaY));
-
-        // 3D tilt angles
-        const tiltY = clampedX * 16 - 3; // base offset -3deg
-        const tiltX = -clampedY * 14 + 1; // base offset +1deg
-
-        wrapper.style.transform = `perspective(1400px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
-
-        // Foreground 3D stereoscopic parallax for Shinchan mascot
-        btn.style.transform = `translateZ(55px) translateX(${(clampedX * 14).toFixed(1)}px) translateY(${(clampedY * 10).toFixed(1)}px)`;
-
-        // Specular gloss reflection shifts with light direction
-        const gloss = document.getElementById('poster-3d-gloss');
-        if (gloss) {
-          const glossX = 50 + clampedX * 45;
-          const glossY = 50 + clampedY * 45;
-          gloss.style.backgroundPosition = `${glossX.toFixed(1)}% ${glossY.toFixed(1)}%`;
-        }
-      });
-    };
-
-    const handlePointerLeave = () => {
-      if (mouseParallaxRAF) cancelAnimationFrame(mouseParallaxRAF);
-      wrapper.style.transform = 'perspective(1400px) rotateY(-3deg) rotateX(1deg)';
-      btn.style.transform = 'translateZ(50px)';
-      const gloss = document.getElementById('poster-3d-gloss');
-      if (gloss) gloss.style.backgroundPosition = '100% 0%';
-    };
-
-    stage.addEventListener('mousemove', handlePointerMove);
-    stage.addEventListener('mouseleave', handlePointerLeave);
-  }
-
-  // Scroll Extension: Navbar Sitting Shinchan (Sits top of website)
-  if (navMascot) {
-    const handleScroll = () => {
-      if (window.scrollY > 450) {
-        navMascot.classList.add('is-visible');
-      } else {
-        navMascot.classList.remove('is-visible');
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    navMascot.addEventListener('click', () => {
-      CartoonAudio.playPop(620, 0.1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      triggerShinchanPoster3DEntrance(true);
+  // Pull Again button hook
+  if (pullAgainBtn) {
+    pullAgainBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      resetPosterPull();
     });
   }
+
+  // Touch / Drag swipe-to-pull support on mobile and mouse
+  let startX = 0;
+  let isDragging = false;
+
+  pullContainer.addEventListener('pointerdown', (e) => {
+    if (isPlaced) return;
+    isDragging = true;
+    startX = e.clientX;
+    pullContainer.setPointerCapture(e.pointerId);
+  });
+
+  pullContainer.addEventListener('pointermove', (e) => {
+    if (!isDragging || isPlaced) return;
+    const deltaX = e.clientX - startX;
+    if (deltaX > 30) {
+      isDragging = false;
+      pullPosterIntoPlace();
+    }
+  });
+
+  pullContainer.addEventListener('pointerup', () => {
+    isDragging = false;
+  });
+
+  pullContainer.addEventListener('pointercancel', () => {
+    isDragging = false;
+  });
 }
 
 // ==============================================================================
@@ -1153,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPreloader();
 
   // Shinchan Hero Mascot Interactive Peeking Animation
-  initShinchanMascot();
+  initShinchanPullFeature();
 
   // Responsive Mobile Navigation & Back to Top
   initMobileNav();
