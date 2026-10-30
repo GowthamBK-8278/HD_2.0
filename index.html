@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@400;500;600;700&family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Core Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20">
+  <link rel="stylesheet" href="css/style.css?v=21">
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -195,7 +195,10 @@
         <div class="hero-pull-stage is-unpulled" id="hero-pull-stage">
 
           <!-- Dashed Target Placement Slot -->
-          <div class="poster-placement-slot" aria-hidden="true"></div>
+          <div class="poster-placement-slot" aria-hidden="true">
+            <span class="slot-hint-text">★ POSTER PLACEMENT AREA ★</span>
+            <span class="slot-hint-arrow">👈 📜</span>
+          </div>
 
           <!-- Official Event Poster Frame (Slides in when pulled!) -->
           <div class="hero-poster-frame" id="hero-poster-frame">
@@ -217,7 +220,7 @@
             
             <!-- Dynamic Comic Speech Bubble -->
             <div class="shinchan-pull-bubble" id="shinchan-pull-bubble" aria-live="polite">
-              <span id="bubble-text">Oi oi! It's too heavy! PULL ME! 😣💦</span>
+              <span id="bubble-text">Oi oi! Poster is outside the screen! PULL ME! 😣💦</span>
             </div>
 
             <!-- "PULL ME! 👈" Pulsing Comic Button Slogan -->
@@ -1292,6 +1295,6 @@
   <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
   <!-- Main JavaScript Engine -->
-  <script src="js/main.js?v=5"></script>
+  <script src="js/main.js?v=6"></script>
 </body>
 </html>

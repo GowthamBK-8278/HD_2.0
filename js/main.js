@@ -974,22 +974,30 @@ function initShinchanPullFeature() {
     "Good ideas happen here! Let's code! 🚀"
   ];
 
-  // Function to pull the poster smoothly into place
+  // Function to pull the poster across distance into place
   function pullPosterIntoPlace() {
     if (isPlaced) return;
     isPlaced = true;
 
-    // Cartoon pull grunt sound
-    CartoonAudio.playPop(320, 0.14);
+    // Rhythmic cartoon hauling steps across the distance!
+    // Step 1: Initial heave-ho
+    CartoonAudio.playPop(320, 0.12);
+    if (bubbleText) bubbleText.textContent = "HEAAAAVE... 🏋️‍♂️";
+
+    // Step 2: Mid-way pull
     setTimeout(() => {
-      CartoonAudio.playPop(480, 0.14);
-    }, 150);
+      CartoonAudio.playPop(440, 0.12);
+      if (bubbleText) bubbleText.textContent = "ALMOST THERE... HOOO! 💨";
+    }, 180);
 
-    // Switch stage state to placed
-    stage.classList.remove('is-unpulled');
-    stage.classList.add('is-placed');
+    // Step 3: Final lock into placement slot
+    setTimeout(() => {
+      stage.classList.remove('is-unpulled');
+      stage.classList.add('is-placed');
+      CartoonAudio.playPop(620, 0.14);
+    }, 320);
 
-    // Confetti and fanfare when poster reaches center (at ~450ms)
+    // Step 4: Celebration impact & fanfare (at 520ms)
     setTimeout(() => {
       CartoonAudio.playSuccess();
       const rect = posterFrame.getBoundingClientRect();
@@ -1002,9 +1010,9 @@ function initShinchanPullFeature() {
       }
 
       if (typeof showWebinarToast === 'function') {
-        showWebinarToast('🎉 POSTER UNLOCKED! DEC 19–20, 2026!');
+        showWebinarToast('🎉 POSTER PLACED! DEC 19–20, 2026!');
       }
-    }, 450);
+    }, 560);
   }
 
   // Function to reset and pull again
@@ -1016,7 +1024,7 @@ function initShinchanPullFeature() {
     CartoonAudio.playPop(380, 0.1);
 
     if (bubbleText) {
-      bubbleText.textContent = "Oi oi! It's too heavy! PULL ME! 😣💦";
+      bubbleText.textContent = "Oi oi! Poster is outside the screen! PULL ME! 😣💦";
     }
 
     if (typeof showWebinarToast === 'function') {
