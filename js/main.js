@@ -949,20 +949,49 @@ function initLiveUnstopCounter() {
 }
 
 // ==============================================================================
-// SHINCHAN INTERACTIVE POSTER PULL-TO-REVEAL SYSTEM
+// SHINCHAN INTERACTIVE POSTER PULL-TO-REVEAL SYSTEM (DRAG & STOP PHYSICS)
 // ==============================================================================
 function initShinchanPullFeature() {
   const stage = document.getElementById('hero-pull-stage');
+  const haulUnit = document.getElementById('poster-haul-unit');
   const pullContainer = document.getElementById('shinchan-pull-container');
   const sloganBadge = document.getElementById('pull-me-slogan');
   const bubbleText = document.getElementById('bubble-text');
   const posterFrame = document.getElementById('hero-poster-frame');
   const pullAgainBtn = document.getElementById('btn-pull-again');
 
-  if (!stage || !pullContainer || !posterFrame) return;
+  if (!stage || !haulUnit || !pullContainer || !posterFrame) return;
 
   let isPlaced = false;
+  let isDragging = false;
+  let hasMoved = false;
+  let startX = 0;
+  let startOffset = 0;
   let quoteIndex = 0;
+
+  function calculateMaxOffset() {
+    if (window.innerWidth <= 480) {
+      return Math.min(260, Math.max(160, window.innerWidth - 140));
+    } else if (window.innerWidth <= 992) {
+      return 360;
+    }
+    return 440;
+  }
+
+  let maxOffset = calculateMaxOffset();
+  let currentOffset = maxOffset;
+
+  // Initialize starting position
+  haulUnit.style.transform = `translateX(${currentOffset}px)`;
+
+  window.addEventListener('resize', () => {
+    maxOffset = calculateMaxOffset();
+    if (!isPlaced && currentOffset > maxOffset) {
+      currentOffset = maxOffset;
+      haulUnit.style.transform = `translateX(${currentOffset}px)`;
+    }
+  });
+
   const celebrationQuotes = [
     "BWAHAHA! WE DID IT! 🥳 HACKDAY 2.0 IS LIVE!",
     "Look at my streetwear drip! Cool right? 😎",
@@ -974,31 +1003,30 @@ function initShinchanPullFeature() {
     "Good ideas happen here! Let's code! 🚀"
   ];
 
-  // Function to pull the poster across distance into place
+  // Function to lock the poster smoothly into place & celebrate
   function pullPosterIntoPlace() {
     if (isPlaced) return;
     isPlaced = true;
+    currentOffset = 0;
 
-    // Rhythmic cartoon hauling steps across the distance!
-    // Step 1: Initial heave-ho
-    CartoonAudio.playPop(320, 0.12);
-    if (bubbleText) bubbleText.textContent = "HEAAAAVE... 🏋️‍♂️";
+    haulUnit.classList.remove('is-dragging');
+    pullContainer.classList.remove('is-grabbing');
 
-    // Step 2: Mid-way pull
+    // Smooth elastic spring into placement slot
+    haulUnit.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.35, 0.64, 1)';
+    haulUnit.style.transform = 'translateX(0px)';
+
+    // Sound effects
+    CartoonAudio.playPop(480, 0.12);
     setTimeout(() => {
-      CartoonAudio.playPop(440, 0.12);
-      if (bubbleText) bubbleText.textContent = "ALMOST THERE... HOOO! 💨";
-    }, 180);
+      CartoonAudio.playPop(680, 0.14);
+    }, 150);
 
-    // Step 3: Final lock into placement slot
+    // Switch stage state to placed
     setTimeout(() => {
       stage.classList.remove('is-unpulled');
       stage.classList.add('is-placed');
-      CartoonAudio.playPop(620, 0.14);
-    }, 320);
 
-    // Step 4: Celebration impact & fanfare (at 520ms)
-    setTimeout(() => {
       CartoonAudio.playSuccess();
       const rect = posterFrame.getBoundingClientRect();
       if (typeof Confetti !== 'undefined' && Confetti.burst) {
@@ -1012,19 +1040,25 @@ function initShinchanPullFeature() {
       if (typeof showWebinarToast === 'function') {
         showWebinarToast('🎉 POSTER PLACED! DEC 19–20, 2026!');
       }
-    }, 560);
+    }, 380);
   }
 
   // Function to reset and pull again
   function resetPosterPull() {
     isPlaced = false;
+    maxOffset = calculateMaxOffset();
+    currentOffset = maxOffset;
+
     stage.classList.remove('is-placed');
     stage.classList.add('is-unpulled');
+
+    haulUnit.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.35, 0.64, 1)';
+    haulUnit.style.transform = `translateX(${currentOffset}px)`;
 
     CartoonAudio.playPop(380, 0.1);
 
     if (bubbleText) {
-      bubbleText.textContent = "Oi oi! Poster is outside the screen! PULL ME! 😣💦";
+      bubbleText.textContent = "Oi oi! Help me pull! 😣💦";
     }
 
     if (typeof showWebinarToast === 'function') {
@@ -1032,14 +1066,10 @@ function initShinchanPullFeature() {
     }
   }
 
-  // Click on Shinchan / Slogan to pull or celebrate
-  pullContainer.addEventListener('click', (e) => {
-    e.stopPropagation();
-
-    if (!isPlaced) {
-      pullPosterIntoPlace();
-    } else {
-      // Celebrating interaction: fist pump bounce, audio, confetti, quote cycle
+  // Pointer Down - start drag or handle celebration click
+  function onPointerDown(e) {
+    if (isPlaced) {
+      // Celebrating interaction
       CartoonAudio.playPop(520, 0.12);
       setTimeout(() => {
         CartoonAudio.playPop(780, 0.15);
@@ -1050,62 +1080,119 @@ function initShinchanPullFeature() {
         Confetti.burst(rect.left + rect.width / 2, rect.top + rect.height / 2);
       }
 
-      // Cycle quotes
       quoteIndex = (quoteIndex + 1) % celebrationQuotes.length;
       if (bubbleText) {
         bubbleText.textContent = celebrationQuotes[quoteIndex];
       }
 
-      // Extra celebratory bounce
       pullContainer.style.transform = 'scale(1.15) translateY(-10px)';
       setTimeout(() => {
         pullContainer.style.transform = '';
       }, 300);
+      return;
     }
-  });
 
-  // Also clicking the poster frame when unpulled triggers the pull
-  posterFrame.addEventListener('click', () => {
-    if (!isPlaced) {
+    isDragging = true;
+    hasMoved = false;
+    startX = e.clientX;
+    startOffset = currentOffset;
+
+    haulUnit.classList.add('is-dragging');
+    pullContainer.classList.add('is-grabbing');
+    try {
+      pullContainer.setPointerCapture(e.pointerId);
+    } catch (err) {}
+  }
+
+  // Pointer Move - real-time responsive dragging!
+  function onPointerMove(e) {
+    if (!isDragging || isPlaced) return;
+
+    const deltaX = e.clientX - startX;
+    if (Math.abs(deltaX) > 4) {
+      hasMoved = true;
+    }
+
+    // Pulling to the left decreases offset
+    let targetX = startOffset + deltaX;
+    targetX = Math.max(0, Math.min(maxOffset, targetX));
+    currentOffset = targetX;
+
+    haulUnit.style.transform = `translateX(${currentOffset}px)`;
+
+    // Dynamic speech feedback while dragging
+    const progress = 1 - (currentOffset / maxOffset);
+    if (bubbleText) {
+      if (progress < 0.3) {
+        bubbleText.textContent = "Oi oi! Keep pulling! 🏋️‍♂️";
+      } else if (progress < 0.75) {
+        bubbleText.textContent = "HEAAAAVE! Halfway there! 💦";
+      } else {
+        bubbleText.textContent = "ALMOST IN THE SLOT! PULL! ⚡";
+      }
+    }
+  }
+
+  // Pointer Up - stop where we stop, or snap into place if close!
+  function onPointerUp(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    haulUnit.classList.remove('is-dragging');
+    pullContainer.classList.remove('is-grabbing');
+
+    try {
+      pullContainer.releasePointerCapture(e.pointerId);
+    } catch (err) {}
+
+    // If simply tapped/clicked without dragging, pull all the way into slot!
+    if (!hasMoved) {
       pullPosterIntoPlace();
+      return;
     }
-  });
 
-  // Pull Again button hook
+    // If pulled close enough to the slot (e.g. within 55px or >85% progress), lock in!
+    const snapThreshold = Math.min(65, maxOffset * 0.2);
+    if (currentOffset <= snapThreshold) {
+      pullPosterIntoPlace();
+    } else {
+      // STOP WHERE WE STOP! Poster and Shinchan stay right at current dragged position!
+      haulUnit.style.transition = 'transform 0.18s ease-out';
+      haulUnit.style.transform = `translateX(${currentOffset}px)`;
+      CartoonAudio.playPop(340, 0.08);
+
+      if (bubbleText) {
+        bubbleText.textContent = "Phew! Don't stop, pull me more! 😜";
+      }
+    }
+  }
+
+  function onPointerCancel(e) {
+    if (isDragging) {
+      isDragging = false;
+      haulUnit.classList.remove('is-dragging');
+      pullContainer.classList.remove('is-grabbing');
+    }
+  }
+
+  // Attach pointer drag listeners to Shinchan mascot, slogan badge, and poster frame
+  pullContainer.addEventListener('pointerdown', onPointerDown);
+  pullContainer.addEventListener('pointermove', onPointerMove);
+  pullContainer.addEventListener('pointerup', onPointerUp);
+  pullContainer.addEventListener('pointercancel', onPointerCancel);
+
+  posterFrame.addEventListener('pointerdown', (e) => {
+    if (!isPlaced) onPointerDown(e);
+  });
+  posterFrame.addEventListener('pointermove', onPointerMove);
+  posterFrame.addEventListener('pointerup', onPointerUp);
+
+  // Pull Again button
   if (pullAgainBtn) {
     pullAgainBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       resetPosterPull();
     });
   }
-
-  // Touch / Drag swipe-to-pull support on mobile and mouse
-  let startX = 0;
-  let isDragging = false;
-
-  pullContainer.addEventListener('pointerdown', (e) => {
-    if (isPlaced) return;
-    isDragging = true;
-    startX = e.clientX;
-    pullContainer.setPointerCapture(e.pointerId);
-  });
-
-  pullContainer.addEventListener('pointermove', (e) => {
-    if (!isDragging || isPlaced) return;
-    const deltaX = e.clientX - startX;
-    if (deltaX > 30) {
-      isDragging = false;
-      pullPosterIntoPlace();
-    }
-  });
-
-  pullContainer.addEventListener('pointerup', () => {
-    isDragging = false;
-  });
-
-  pullContainer.addEventListener('pointercancel', () => {
-    isDragging = false;
-  });
 }
 
 // ==============================================================================

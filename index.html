@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@400;500;600;700&family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Core Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=21">
+  <link rel="stylesheet" href="css/style.css?v=22">
 
   <!-- Three.js CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -195,44 +195,39 @@
         <div class="hero-pull-stage is-unpulled" id="hero-pull-stage">
 
           <!-- Dashed Target Placement Slot -->
-          <div class="poster-placement-slot" aria-hidden="true">
+          <div class="poster-placement-slot" id="poster-placement-slot" aria-hidden="true">
             <span class="slot-hint-text">★ POSTER PLACEMENT AREA ★</span>
-            <span class="slot-hint-arrow">👈 📜</span>
+            <span class="slot-hint-arrow">👈 DRAG &amp; PULL HERE 📜</span>
           </div>
 
-          <!-- Official Event Poster Frame (Slides in when pulled!) -->
-          <div class="hero-poster-frame" id="hero-poster-frame">
-            <div class="poster-stamp-badge">
-              <span>★ OFFICIAL POSTER ★</span>
-            </div>
-            <img src="img/official_poster.jpg?v=9" alt="Official HACKDAY 2.0 Event Poster" class="hero-poster-img" id="hero-poster-img">
-          </div>
+          <!-- Haulable Unit: Poster + Shinchan connected near it! -->
+          <div class="poster-haul-unit" id="poster-haul-unit">
 
-          <!-- Pull Rope Linking Poster to Shinchan -->
-          <div class="pull-rope" id="pull-rope" aria-hidden="true">
-            <svg viewBox="0 0 140 28" preserveAspectRatio="none" class="rope-svg">
-              <path class="rope-line" d="M 0 14 Q 70 20 140 14" stroke="#D4A373" stroke-width="7" stroke-linecap="round" stroke-dasharray="8 4" fill="none"/>
-            </svg>
-          </div>
+            <!-- Shinchan Interactive Pull Mascot (Standing NEAR the poster) -->
+            <div class="shinchan-pull-container" id="shinchan-pull-container" role="button" tabindex="0" aria-label="Shinchan pulling poster! Drag or click to pull poster into place" title="Drag me to pull the poster!">
+              
+              <!-- Dynamic Comic Speech Bubble -->
+              <div class="shinchan-pull-bubble" id="shinchan-pull-bubble" aria-live="polite">
+                <span id="bubble-text">Oi oi! Help me pull! 😣💦</span>
+              </div>
 
-          <!-- Shinchan Interactive Pull Mascot Handle -->
-          <div class="shinchan-pull-container" id="shinchan-pull-container" role="button" tabindex="0" aria-label="Shinchan pulling poster! Click or drag to pull the poster into place" title="Click or Drag me to pull!">
-            
-            <!-- Dynamic Comic Speech Bubble -->
-            <div class="shinchan-pull-bubble" id="shinchan-pull-bubble" aria-live="polite">
-              <span id="bubble-text">Oi oi! Poster is outside the screen! PULL ME! 😣💦</span>
-            </div>
+              <!-- "PULL ME! 👈" Pulsing Comic Button Slogan -->
+              <div class="pull-me-slogan-badge" id="pull-me-slogan" aria-hidden="true">
+                <span class="pulse-hand">👈</span>
+                <span class="slogan-text">PULL ME!</span>
+                <span class="pulse-arrow">👈</span>
+              </div>
 
-            <!-- "PULL ME! 👈" Pulsing Comic Button Slogan -->
-            <div class="pull-me-slogan-badge" id="pull-me-slogan" aria-hidden="true">
-              <span class="pulse-hand">👉</span>
-              <span class="slogan-text">PULL ME!</span>
-              <span class="pulse-arrow">👈</span>
-            </div>
+              <!-- Short Tug Rope directly connecting Shinchan's hands to the poster rim -->
+              <div class="short-pull-rope" id="short-pull-rope" aria-hidden="true">
+                <svg viewBox="0 0 50 16" class="short-rope-svg">
+                  <path d="M 0 8 L 50 8" stroke="#D4A373" stroke-width="6" stroke-linecap="round" stroke-dasharray="6 3" fill="none"/>
+                </svg>
+              </div>
 
-            <!-- State 1: Shinchan Straining / Pulling Pose (Before pull) -->
-            <div class="shinchan-pose-pull" id="shinchan-pose-pull">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240" class="shinchan-pulling-svg">
+              <!-- State 1: Shinchan Straining / Pulling Pose (When unpulled) -->
+              <div class="shinchan-pose-pull" id="shinchan-pose-pull">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240" class="shinchan-pulling-svg">
   <defs>
     <filter id="pull-shadow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="3" dy="4" stdDeviation="0" flood-color="#000000"/>
@@ -354,16 +349,26 @@
 
   </g>
 </svg>
+              </div>
+
+              <!-- State 2: Shinchan Celebrating in Streetwear (When placed, standing to the side) -->
+              <div class="shinchan-pose-celebrate" id="shinchan-pose-celebrate">
+                <img src="img/shinchan_streetwear_cutout.png" alt="Shinchan celebrating victory with fist pump" class="shinchan-streetwear-img">
+                <div class="victory-sparks" aria-hidden="true">
+                  <span class="spark s1">⭐</span>
+                  <span class="spark s2">✨</span>
+                  <span class="spark s3">🎉</span>
+                </div>
+              </div>
+
             </div>
 
-            <!-- State 2: Shinchan Celebrating in Streetwear (Attached Photo!) -->
-            <div class="shinchan-pose-celebrate" id="shinchan-pose-celebrate">
-              <img src="img/shinchan_streetwear_cutout.png" alt="Shinchan celebrating victory with fist pump" class="shinchan-streetwear-img">
-              <div class="victory-sparks" aria-hidden="true">
-                <span class="spark s1">⭐</span>
-                <span class="spark s2">✨</span>
-                <span class="spark s3">🎉</span>
+            <!-- Official Event Poster Frame -->
+            <div class="hero-poster-frame" id="hero-poster-frame">
+              <div class="poster-stamp-badge">
+                <span>★ OFFICIAL POSTER ★</span>
               </div>
+              <img src="img/official_poster.jpg?v=11" alt="Official HACKDAY 2.0 Event Poster" class="hero-poster-img" id="hero-poster-img">
             </div>
 
           </div>
@@ -1295,6 +1300,6 @@
   <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
   <!-- Main JavaScript Engine -->
-  <script src="js/main.js?v=6"></script>
+  <script src="js/main.js?v=7"></script>
 </body>
 </html>
