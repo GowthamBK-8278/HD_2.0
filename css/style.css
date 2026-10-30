@@ -852,17 +852,18 @@ a, button, .clickable {
   overflow: visible;
 }
 
-/* Hero Visual Pull Stage Container */
+/* Hero Visual Pull Stage Container (Reserves right space for Shinchan so he is NEVER clipped) */
 .hero-pull-stage {
   position: relative;
   width: 100%;
-  max-width: 580px;
-  min-height: 560px;
+  max-width: 600px;
+  min-height: 570px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 10px;
+  padding: 10px 175px 10px 10px;
+  box-sizing: border-box;
   overflow: visible;
 }
 
@@ -870,8 +871,8 @@ a, button, .clickable {
 .poster-placement-slot {
   position: absolute;
   left: 10px;
-  width: min(390px, calc(100vw - 165px));
-  max-width: 390px;
+  width: 100%;
+  max-width: 395px;
   aspect-ratio: 3 / 4;
   border-radius: var(--radius-lg);
   border: 3.5px dashed rgba(255, 212, 0, 0.45);
@@ -935,9 +936,9 @@ a, button, .clickable {
    ============================================================================== */
 .poster-haul-unit {
   position: relative;
-  left: 10px;
-  width: min(390px, calc(100vw - 165px));
-  max-width: 390px;
+  left: 0;
+  width: 100%;
+  max-width: 395px;
   z-index: 5;
   touch-action: pan-y;
   user-select: none;
@@ -1000,7 +1001,7 @@ a, button, .clickable {
 }
 
 /* ==============================================================================
-   SHINCHAN PULL MASCOT (STANDING NEAR POSTER WHEN UNPULLED, SIDEWISE WHEN PLACED)
+   SHINCHAN PULL MASCOT (BIG & CLEAR PULLING, 100% VISIBLE SIDEWISE CELEBRATION)
    ============================================================================== */
 .shinchan-pull-container {
   position: absolute;
@@ -1013,11 +1014,13 @@ a, button, .clickable {
               transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* State 1 (Unpulled & Dragging): Standing NEAR the left edge of poster! */
+/* State 1 (Unpulled & Dragging): Standing NEAR the left edge of poster - BIG & VISIBLE! */
 .hero-pull-stage.is-unpulled .shinchan-pull-container {
   bottom: 25px;
   right: calc(100% - 24px); /* Standing directly adjacent to the poster's left border! */
   left: auto;
+  width: 175px;
+  height: 220px;
   cursor: grab;
 }
 
@@ -1032,8 +1035,8 @@ a, button, .clickable {
 
 @keyframes shinchanStrainingLeft {
   0% { transform: translateX(0) rotate(0deg); }
-  50% { transform: translateX(-4px) rotate(-1.5deg); }
-  100% { transform: translateX(3px) rotate(1.2deg); }
+  50% { transform: translateX(-5px) rotate(-1.5deg); }
+  100% { transform: translateX(4px) rotate(1.2deg); }
 }
 
 /* Short Tether / Rope directly between Shinchan's hands & poster edge */
@@ -1070,13 +1073,17 @@ a, button, .clickable {
   100% { transform: scaleY(1.2) rotate(-1.5deg); }
 }
 
-/* State 2 (Placed): STANDING TO THE SIDE OF THE POSTER (100% VISIBLE, NEVER CUT OFF!) */
+/* State 2 (Placed): STANDING BESIDE POSTER IN RESERVED RIGHT SPACE (100% VISIBLE!) */
 .hero-pull-stage.is-placed .shinchan-pull-container {
   position: absolute;
-  left: calc(100% + 10px); /* Standing cleanly beside poster to the right! */
+  left: calc(100% + 8px);
   right: auto;
   bottom: 12px;
+  width: 160px;
+  height: 225px;
   cursor: pointer;
+  display: block !important;
+  visibility: visible !important;
 }
 
 /* "PULL ME! 👈" Pulsing Comic Button Slogan */
@@ -1117,7 +1124,7 @@ a, button, .clickable {
   display: none !important;
 }
 
-/* Dynamic Comic Speech Bubble (Protected from overflow) */
+/* Dynamic Comic Speech Bubble */
 .shinchan-pull-bubble {
   position: absolute;
   top: -88px;
@@ -1147,7 +1154,7 @@ a, button, .clickable {
   right: 0;
   left: auto;
   transform: none;
-  max-width: 210px;
+  max-width: 190px;
   white-space: normal;
   text-align: center;
 }
@@ -1197,7 +1204,7 @@ a, button, .clickable {
 }
 
 /* ==============================================================================
-   STATE SWITCH: PULLING POSE VS CELEBRATING STREETWEAR POSE
+   STATE SWITCH: BIG PULLING POSE VS CELEBRATING STREETWEAR INLINE SVG
    ============================================================================== */
 .hero-pull-stage.is-unpulled .shinchan-pose-pull {
   display: block;
@@ -1210,40 +1217,74 @@ a, button, .clickable {
   display: none;
 }
 .hero-pull-stage.is-placed .shinchan-pose-celebrate {
-  display: block;
-  animation: celebrateFistPump 0.85s infinite alternate ease-in-out;
+  display: block !important;
+  visibility: visible !important;
+  width: 100%;
+  height: 100%;
 }
 
-/* Pulling SVG Sizing - Flipped to Face the Poster */
+/* BIG Pulling SVG Sizing - Prominent & Heroic! */
 .shinchan-pulling-svg {
-  width: 165px;
-  height: auto;
+  width: 175px;
+  height: 220px;
   display: block;
   overflow: visible;
   transform: scaleX(-1);
+  filter: drop-shadow(4px 6px 0px #000000);
 }
 
-/* Streetwear Cutout Image Styling (Attached Photo!) */
-.shinchan-streetwear-img {
-  width: 140px;
-  height: auto;
+/* Streetwear Inline SVG Canvas - Guaranteed 100% Render! */
+.streetwear-svg-canvas {
+  width: 160px;
+  height: 225px;
   display: block;
-  filter: drop-shadow(4px 6px 0px #000000) drop-shadow(0 0 15px rgba(255, 212, 0, 0.45));
-  user-select: none;
-  pointer-events: none;
+  overflow: visible;
 }
 
-/* Fist Pump Victory Animation (Exact Action from Photo!) */
-@keyframes celebrateFistPump {
-  0% {
-    transform: translateY(0) rotate(0deg) scale(1);
-  }
-  50% {
-    transform: translateY(-18px) rotate(-4deg) scale(1.05);
-  }
-  100% {
-    transform: translateY(2px) rotate(2deg) scale(0.98);
-  }
+/* Energetic Fist Pump Victory Animation (Exact Action from User's Photo!) */
+.streetwear-body {
+  animation: streetwearBodyBounce 1.2s infinite alternate ease-in-out;
+  transform-origin: 100px 245px;
+}
+
+@keyframes streetwearBodyBounce {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-1.5deg); }
+  100% { transform: translateY(1px) rotate(1deg); }
+}
+
+/* Right Arm Pumping Clenched Fist ✊ */
+.street-arm-right-fist {
+  animation: fistPumpArm 0.7s infinite alternate cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: 146px 104px;
+}
+
+@keyframes fistPumpArm {
+  0% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(-12deg) translateY(-8px) scale(1.08); }
+  100% { transform: rotate(4deg) translateY(2px); }
+}
+
+/* Bushy Eyebrow Wiggle */
+.street-eyebrow-left {
+  animation: eyebrowWiggleLeft 1.5s infinite alternate ease-in-out;
+  transform-origin: 60px 22px;
+}
+.street-eyebrow-right {
+  animation: eyebrowWiggleRight 1.5s infinite alternate ease-in-out;
+  transform-origin: 115px 20px;
+}
+
+/* Singing / Laughing Mouth Pulse */
+.street-mouth-sing {
+  animation: mouthSingPulse 1.1s infinite alternate ease-in-out;
+  transform-origin: 94px 68px;
+}
+
+@keyframes mouthSingPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(0.95); }
 }
 
 /* Floating Victory Sparks Around Celebrating Shinchan */
@@ -2644,27 +2685,31 @@ a, button, .clickable {
 
   /* Tablet adjustments for Poster Pull Stage */
   .hero-pull-stage {
-    max-width: 540px;
-    min-height: 500px;
-    justify-content: flex-start;
+    max-width: 550px;
+    min-height: 520px;
+    padding: 10px 155px 10px 10px;
   }
   .poster-placement-slot,
   .poster-haul-unit {
-    left: 10px;
-    width: min(360px, calc(100vw - 150px));
     max-width: 360px;
   }
   .hero-pull-stage.is-unpulled .shinchan-pull-container {
     right: calc(100% - 20px);
+    width: 160px;
+    height: 200px;
   }
   .hero-pull-stage.is-placed .shinchan-pull-container {
     left: calc(100% + 8px);
+    width: 145px;
+    height: 200px;
   }
   .shinchan-pulling-svg {
-    width: 145px;
+    width: 160px;
+    height: 200px;
   }
-  .shinchan-streetwear-img {
-    width: 130px;
+  .streetwear-svg-canvas {
+    width: 145px;
+    height: 200px;
   }
 
   /* Info Strip Section: 2 columns on tablet with 3rd card spanning */
@@ -4096,29 +4141,33 @@ a, button, .clickable {
 @media (max-width: 480px) {
   .hero-pull-stage {
     max-width: 100%;
-    min-height: 440px;
-    padding: 5px;
-    justify-content: flex-start;
+    min-height: 470px;
+    padding: 10px 130px 10px 5px;
   }
   .poster-placement-slot,
   .poster-haul-unit {
-    left: 5px;
-    width: min(260px, calc(100vw - 120px));
-    max-width: 260px;
+    left: 0;
+    max-width: calc(100vw - 145px);
   }
   .hero-pull-stage.is-unpulled .shinchan-pull-container {
     right: calc(100% - 15px);
-    bottom: 10px;
+    bottom: 12px;
+    width: 140px;
+    height: 180px;
   }
   .hero-pull-stage.is-placed .shinchan-pull-container {
     left: calc(100% + 6px);
-    bottom: 10px;
+    bottom: 12px;
+    width: 120px;
+    height: 175px;
   }
   .shinchan-pulling-svg {
-    width: 120px;
+    width: 140px;
+    height: 180px;
   }
-  .shinchan-streetwear-img {
-    width: 105px;
+  .streetwear-svg-canvas {
+    width: 120px;
+    height: 175px;
   }
   .pull-me-slogan-badge {
     font-size: 0.88rem;
@@ -4129,7 +4178,7 @@ a, button, .clickable {
     font-size: 0.68rem;
     padding: 4px 8px;
     top: -68px;
-    max-width: 160px;
+    max-width: 155px;
     white-space: normal;
   }
 }
